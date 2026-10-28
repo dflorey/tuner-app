@@ -1,0 +1,935 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Tuner FS-2: a vintage-style chromatic tuner for guitar, bass and violin that listens through your microphone." />
+    <meta name="theme-color" content="#1a1816" />
+    <title>Tuner FS-2</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='7' fill='%23ff2a14'/%3E%3C/svg%3E" />
+    
+    <style>
+      html {
+        color-scheme: dark;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        place-items: center;
+        padding: 24px 16px;
+        box-sizing: border-box;
+        background: radial-gradient(ellipse at 50% 35%, #34302b 0%, #1a1816 55%, #0c0b0a 100%);
+      }
+      tuner-app:not(:defined) {
+        display: none;
+      }
+    </style>
+    <script type="module">/**
+ * @license
+ * Copyright 2019 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */const Q=globalThis,ge=Q.ShadowRoot&&(Q.ShadyCSS===void 0||Q.ShadyCSS.nativeShadow)&&"adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prototype,ue=Symbol(),xe=new WeakMap;let Re=class{constructor(e,t,i){if(this._$cssResult$=!0,i!==ue)throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");this.cssText=e,this.t=t}get styleSheet(){let e=this.o;const t=this.t;if(ge&&e===void 0){const i=t!==void 0&&t.length===1;i&&(e=xe.get(t)),e===void 0&&((this.o=e=new CSSStyleSheet).replaceSync(this.cssText),i&&xe.set(t,e))}return e}toString(){return this.cssText}};const Ge=s=>new Re(typeof s=="string"?s:s+"",void 0,ue),se=(s,...e)=>{const t=s.length===1?s[0]:e.reduce((i,r,n)=>i+(a=>{if(a._$cssResult$===!0)return a.cssText;if(typeof a=="number")return a;throw Error("Value passed to 'css' function must be a 'css' function result: "+a+". Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.")})(r)+s[n+1],s[0]);return new Re(t,s,ue)},Ke=(s,e)=>{if(ge)s.adoptedStyleSheets=e.map(t=>t instanceof CSSStyleSheet?t:t.styleSheet);else for(const t of e){const i=document.createElement("style"),r=Q.litNonce;r!==void 0&&i.setAttribute("nonce",r),i.textContent=t.cssText,s.appendChild(i)}},ve=ge?s=>s:s=>s instanceof CSSStyleSheet?(e=>{let t="";for(const i of e.cssRules)t+=i.cssText;return Ge(t)})(s):s;/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */const{is:We,defineProperty:Ye,getOwnPropertyDescriptor:Xe,getOwnPropertyNames:Je,getOwnPropertySymbols:Ze,getPrototypeOf:Qe}=Object,_=globalThis,$e=_.trustedTypes,et=$e?$e.emptyScript:"",ne=_.reactiveElementPolyfillSupport,F=(s,e)=>s,ee={toAttribute(s,e){switch(e){case Boolean:s=s?et:null;break;case Object:case Array:s=s==null?s:JSON.stringify(s)}return s},fromAttribute(s,e){let t=s;switch(e){case Boolean:t=s!==null;break;case Number:t=s===null?null:Number(s);break;case Object:case Array:try{t=JSON.parse(s)}catch{t=null}}return t}},fe=(s,e)=>!We(s,e),ye={attribute:!0,type:String,converter:ee,reflect:!1,useDefault:!1,hasChanged:fe};Symbol.metadata??(Symbol.metadata=Symbol("metadata")),_.litPropertyMetadata??(_.litPropertyMetadata=new WeakMap);let O=class extends HTMLElement{static addInitializer(e){this._$Ei(),(this.l??(this.l=[])).push(e)}static get observedAttributes(){return this.finalize(),this._$Eh&&[...this._$Eh.keys()]}static createProperty(e,t=ye){if(t.state&&(t.attribute=!1),this._$Ei(),this.prototype.hasOwnProperty(e)&&((t=Object.create(t)).wrapped=!0),this.elementProperties.set(e,t),!t.noAccessor){const i=Symbol(),r=this.getPropertyDescriptor(e,i,t);r!==void 0&&Ye(this.prototype,e,r)}}static getPropertyDescriptor(e,t,i){const{get:r,set:n}=Xe(this.prototype,e)??{get(){return this[t]},set(a){this[t]=a}};return{get:r,set(a){const l=r==null?void 0:r.call(this);n==null||n.call(this,a),this.requestUpdate(e,l,i)},configurable:!0,enumerable:!0}}static getPropertyOptions(e){return this.elementProperties.get(e)??ye}static _$Ei(){if(this.hasOwnProperty(F("elementProperties")))return;const e=Qe(this);e.finalize(),e.l!==void 0&&(this.l=[...e.l]),this.elementProperties=new Map(e.elementProperties)}static finalize(){if(this.hasOwnProperty(F("finalized")))return;if(this.finalized=!0,this._$Ei(),this.hasOwnProperty(F("properties"))){const t=this.properties,i=[...Je(t),...Ze(t)];for(const r of i)this.createProperty(r,t[r])}const e=this[Symbol.metadata];if(e!==null){const t=litPropertyMetadata.get(e);if(t!==void 0)for(const[i,r]of t)this.elementProperties.set(i,r)}this._$Eh=new Map;for(const[t,i]of this.elementProperties){const r=this._$Eu(t,i);r!==void 0&&this._$Eh.set(r,t)}this.elementStyles=this.finalizeStyles(this.styles)}static finalizeStyles(e){const t=[];if(Array.isArray(e)){const i=new Set(e.flat(1/0).reverse());for(const r of i)t.unshift(ve(r))}else e!==void 0&&t.push(ve(e));return t}static _$Eu(e,t){const i=t.attribute;return i===!1?void 0:typeof i=="string"?i:typeof e=="string"?e.toLowerCase():void 0}constructor(){super(),this._$Ep=void 0,this.isUpdatePending=!1,this.hasUpdated=!1,this._$Em=null,this._$Ev()}_$Ev(){var e;this._$ES=new Promise(t=>this.enableUpdating=t),this._$AL=new Map,this._$E_(),this.requestUpdate(),(e=this.constructor.l)==null||e.forEach(t=>t(this))}addController(e){var t;(this._$EO??(this._$EO=new Set)).add(e),this.renderRoot!==void 0&&this.isConnected&&((t=e.hostConnected)==null||t.call(e))}removeController(e){var t;(t=this._$EO)==null||t.delete(e)}_$E_(){const e=new Map,t=this.constructor.elementProperties;for(const i of t.keys())this.hasOwnProperty(i)&&(e.set(i,this[i]),delete this[i]);e.size>0&&(this._$Ep=e)}createRenderRoot(){const e=this.shadowRoot??this.attachShadow(this.constructor.shadowRootOptions);return Ke(e,this.constructor.elementStyles),e}connectedCallback(){var e;this.renderRoot??(this.renderRoot=this.createRenderRoot()),this.enableUpdating(!0),(e=this._$EO)==null||e.forEach(t=>{var i;return(i=t.hostConnected)==null?void 0:i.call(t)})}enableUpdating(e){}disconnectedCallback(){var e;(e=this._$EO)==null||e.forEach(t=>{var i;return(i=t.hostDisconnected)==null?void 0:i.call(t)})}attributeChangedCallback(e,t,i){this._$AK(e,i)}_$ET(e,t){var n;const i=this.constructor.elementProperties.get(e),r=this.constructor._$Eu(e,i);if(r!==void 0&&i.reflect===!0){const a=(((n=i.converter)==null?void 0:n.toAttribute)!==void 0?i.converter:ee).toAttribute(t,i.type);this._$Em=e,a==null?this.removeAttribute(r):this.setAttribute(r,a),this._$Em=null}}_$AK(e,t){var n,a;const i=this.constructor,r=i._$Eh.get(e);if(r!==void 0&&this._$Em!==r){const l=i.getPropertyOptions(r),o=typeof l.converter=="function"?{fromAttribute:l.converter}:((n=l.converter)==null?void 0:n.fromAttribute)!==void 0?l.converter:ee;this._$Em=r;const d=o.fromAttribute(t,l.type);this[r]=d??((a=this._$Ej)==null?void 0:a.get(r))??d,this._$Em=null}}requestUpdate(e,t,i,r=!1,n){var a;if(e!==void 0){const l=this.constructor;if(r===!1&&(n=this[e]),i??(i=l.getPropertyOptions(e)),!((i.hasChanged??fe)(n,t)||i.useDefault&&i.reflect&&n===((a=this._$Ej)==null?void 0:a.get(e))&&!this.hasAttribute(l._$Eu(e,i))))return;this.C(e,t,i)}this.isUpdatePending===!1&&(this._$ES=this._$EP())}C(e,t,{useDefault:i,reflect:r,wrapped:n},a){i&&!(this._$Ej??(this._$Ej=new Map)).has(e)&&(this._$Ej.set(e,a??t??this[e]),n!==!0||a!==void 0)||(this._$AL.has(e)||(this.hasUpdated||i||(t=void 0),this._$AL.set(e,t)),r===!0&&this._$Em!==e&&(this._$Eq??(this._$Eq=new Set)).add(e))}async _$EP(){this.isUpdatePending=!0;try{await this._$ES}catch(t){Promise.reject(t)}const e=this.scheduleUpdate();return e!=null&&await e,!this.isUpdatePending}scheduleUpdate(){return this.performUpdate()}performUpdate(){var i;if(!this.isUpdatePending)return;if(!this.hasUpdated){if(this.renderRoot??(this.renderRoot=this.createRenderRoot()),this._$Ep){for(const[n,a]of this._$Ep)this[n]=a;this._$Ep=void 0}const r=this.constructor.elementProperties;if(r.size>0)for(const[n,a]of r){const{wrapped:l}=a,o=this[n];l!==!0||this._$AL.has(n)||o===void 0||this.C(n,void 0,a,o)}}let e=!1;const t=this._$AL;try{e=this.shouldUpdate(t),e?(this.willUpdate(t),(i=this._$EO)==null||i.forEach(r=>{var n;return(n=r.hostUpdate)==null?void 0:n.call(r)}),this.update(t)):this._$EM()}catch(r){throw e=!1,this._$EM(),r}e&&this._$AE(t)}willUpdate(e){}_$AE(e){var t;(t=this._$EO)==null||t.forEach(i=>{var r;return(r=i.hostUpdated)==null?void 0:r.call(i)}),this.hasUpdated||(this.hasUpdated=!0,this.firstUpdated(e)),this.updated(e)}_$EM(){this._$AL=new Map,this.isUpdatePending=!1}get updateComplete(){return this.getUpdateComplete()}getUpdateComplete(){return this._$ES}shouldUpdate(e){return!0}update(e){this._$Eq&&(this._$Eq=this._$Eq.forEach(t=>this._$ET(t,this[t]))),this._$EM()}updated(e){}firstUpdated(e){}};O.elementStyles=[],O.shadowRootOptions={mode:"open"},O[F("elementProperties")]=new Map,O[F("finalized")]=new Map,ne==null||ne({ReactiveElement:O}),(_.reactiveElementVersions??(_.reactiveElementVersions=[])).push("2.1.2");/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */const B=globalThis,we=s=>s,te=B.trustedTypes,_e=te?te.createPolicy("lit-html",{createHTML:s=>s}):void 0,Ue="$lit$",w=`lit$${Math.random().toFixed(9).slice(2)}$`,Ie="?"+w,tt=`<${Ie}>`,P=document,G=()=>P.createComment(""),K=s=>s===null||typeof s!="object"&&typeof s!="function",me=Array.isArray,st=s=>me(s)||typeof(s==null?void 0:s[Symbol.iterator])=="function",ae=`[ 	
+\f\r]`,I=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,Ee=/-->/g,Ae=/>/g,S=RegExp(`>|${ae}(?:([^\\s"'>=/]+)(${ae}*=${ae}*(?:[^ 	
+\f\r"'\`<>=]|("|')|))|$)`,"g"),Se=/'/g,Ce=/"/g,je=/^(?:script|style|textarea|title)$/i,Le=s=>(e,...t)=>({_$litType$:s,strings:e,values:t}),m=Le(1),z=Le(2),H=Symbol.for("lit-noChange"),g=Symbol.for("lit-nothing"),Me=new WeakMap,C=P.createTreeWalker(P,129);function qe(s,e){if(!me(s)||!s.hasOwnProperty("raw"))throw Error("invalid template strings array");return _e!==void 0?_e.createHTML(e):e}const it=(s,e)=>{const t=s.length-1,i=[];let r,n=e===2?"<svg>":e===3?"<math>":"",a=I;for(let l=0;l<t;l++){const o=s[l];let d,c,h=-1,p=0;for(;p<o.length&&(a.lastIndex=p,c=a.exec(o),c!==null);)p=a.lastIndex,a===I?c[1]==="!--"?a=Ee:c[1]!==void 0?a=Ae:c[2]!==void 0?(je.test(c[2])&&(r=RegExp("</"+c[2],"g")),a=S):c[3]!==void 0&&(a=S):a===S?c[0]===">"?(a=r??I,h=-1):c[1]===void 0?h=-2:(h=a.lastIndex-c[2].length,d=c[1],a=c[3]===void 0?S:c[3]==='"'?Ce:Se):a===Ce||a===Se?a=S:a===Ee||a===Ae?a=I:(a=S,r=void 0);const u=a===S&&s[l+1].startsWith("/>")?" ":"";n+=a===I?o+tt:h>=0?(i.push(d),o.slice(0,h)+Ue+o.slice(h)+w+u):o+w+(h===-2?l:u)}return[qe(s,n+(s[t]||"<?>")+(e===2?"</svg>":e===3?"</math>":"")),i]};class W{constructor({strings:e,_$litType$:t},i){let r;this.parts=[];let n=0,a=0;const l=e.length-1,o=this.parts,[d,c]=it(e,t);if(this.el=W.createElement(d,i),C.currentNode=this.el.content,t===2||t===3){const h=this.el.content.firstChild;h.replaceWith(...h.childNodes)}for(;(r=C.nextNode())!==null&&o.length<l;){if(r.nodeType===1){if(r.hasAttributes())for(const h of r.getAttributeNames())if(h.endsWith(Ue)){const p=c[a++],u=r.getAttribute(h).split(w),v=/([.?@])?(.*)/.exec(p);o.push({type:1,index:n,name:v[2],strings:u,ctor:v[1]==="."?nt:v[1]==="?"?at:v[1]==="@"?ot:ie}),r.removeAttribute(h)}else h.startsWith(w)&&(o.push({type:6,index:n}),r.removeAttribute(h));if(je.test(r.tagName)){const h=r.textContent.split(w),p=h.length-1;if(p>0){r.textContent=te?te.emptyScript:"";for(let u=0;u<p;u++)r.append(h[u],G()),C.nextNode(),o.push({type:2,index:++n});r.append(h[p],G())}}}else if(r.nodeType===8)if(r.data===Ie)o.push({type:2,index:n});else{let h=-1;for(;(h=r.data.indexOf(w,h+1))!==-1;)o.push({type:7,index:n}),h+=w.length-1}n++}}static createElement(e,t){const i=P.createElement("template");return i.innerHTML=e,i}}function N(s,e,t=s,i){var a,l;if(e===H)return e;let r=i!==void 0?(a=t._$Co)==null?void 0:a[i]:t._$Cl;const n=K(e)?void 0:e._$litDirective$;return(r==null?void 0:r.constructor)!==n&&((l=r==null?void 0:r._$AO)==null||l.call(r,!1),n===void 0?r=void 0:(r=new n(s),r._$AT(s,t,i)),i!==void 0?(t._$Co??(t._$Co=[]))[i]=r:t._$Cl=r),r!==void 0&&(e=N(s,r._$AS(s,e.values),r,i)),e}let rt=class{constructor(e,t){this._$AV=[],this._$AN=void 0,this._$AD=e,this._$AM=t}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(e){const{el:{content:t},parts:i}=this._$AD,r=((e==null?void 0:e.creationScope)??P).importNode(t,!0);C.currentNode=r;let n=C.nextNode(),a=0,l=0,o=i[0];for(;o!==void 0;){if(a===o.index){let d;o.type===2?d=new X(n,n.nextSibling,this,e):o.type===1?d=new o.ctor(n,o.name,o.strings,this,e):o.type===6&&(d=new lt(n,this,e)),this._$AV.push(d),o=i[++l]}a!==(o==null?void 0:o.index)&&(n=C.nextNode(),a++)}return C.currentNode=P,r}p(e){let t=0;for(const i of this._$AV)i!==void 0&&(i.strings!==void 0?(i._$AI(e,i,t),t+=i.strings.length-2):i._$AI(e[t])),t++}};class X{get _$AU(){var e;return((e=this._$AM)==null?void 0:e._$AU)??this._$Cv}constructor(e,t,i,r){this.type=2,this._$AH=g,this._$AN=void 0,this._$AA=e,this._$AB=t,this._$AM=i,this.options=r,this._$Cv=(r==null?void 0:r.isConnected)??!0}get parentNode(){let e=this._$AA.parentNode;const t=this._$AM;return t!==void 0&&(e==null?void 0:e.nodeType)===11&&(e=t.parentNode),e}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(e,t=this){e=N(this,e,t),K(e)?e===g||e==null||e===""?(this._$AH!==g&&this._$AR(),this._$AH=g):e!==this._$AH&&e!==H&&this._(e):e._$litType$!==void 0?this.$(e):e.nodeType!==void 0?this.T(e):st(e)?this.k(e):this._(e)}O(e){return this._$AA.parentNode.insertBefore(e,this._$AB)}T(e){this._$AH!==e&&(this._$AR(),this._$AH=this.O(e))}_(e){this._$AH!==g&&K(this._$AH)?this._$AA.nextSibling.data=e:this.T(P.createTextNode(e)),this._$AH=e}$(e){var n;const{values:t,_$litType$:i}=e,r=typeof i=="number"?this._$AC(e):(i.el===void 0&&(i.el=W.createElement(qe(i.h,i.h[0]),this.options)),i);if(((n=this._$AH)==null?void 0:n._$AD)===r)this._$AH.p(t);else{const a=new rt(r,this),l=a.u(this.options);a.p(t),this.T(l),this._$AH=a}}_$AC(e){let t=Me.get(e.strings);return t===void 0&&Me.set(e.strings,t=new W(e)),t}k(e){me(this._$AH)||(this._$AH=[],this._$AR());const t=this._$AH;let i,r=0;for(const n of e)r===t.length?t.push(i=new X(this.O(G()),this.O(G()),this,this.options)):i=t[r],i._$AI(n),r++;r<t.length&&(this._$AR(i&&i._$AB.nextSibling,r),t.length=r)}_$AR(e=this._$AA.nextSibling,t){var i;for((i=this._$AP)==null?void 0:i.call(this,!1,!0,t);e!==this._$AB;){const r=we(e).nextSibling;we(e).remove(),e=r}}setConnected(e){var t;this._$AM===void 0&&(this._$Cv=e,(t=this._$AP)==null||t.call(this,e))}}let ie=class{get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}constructor(e,t,i,r,n){this.type=1,this._$AH=g,this._$AN=void 0,this.element=e,this.name=t,this._$AM=r,this.options=n,i.length>2||i[0]!==""||i[1]!==""?(this._$AH=Array(i.length-1).fill(new String),this.strings=i):this._$AH=g}_$AI(e,t=this,i,r){const n=this.strings;let a=!1;if(n===void 0)e=N(this,e,t,0),a=!K(e)||e!==this._$AH&&e!==H,a&&(this._$AH=e);else{const l=e;let o,d;for(e=n[0],o=0;o<n.length-1;o++)d=N(this,l[i+o],t,o),d===H&&(d=this._$AH[o]),a||(a=!K(d)||d!==this._$AH[o]),d===g?e=g:e!==g&&(e+=(d??"")+n[o+1]),this._$AH[o]=d}a&&!r&&this.j(e)}j(e){e===g?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,e??"")}};class nt extends ie{constructor(){super(...arguments),this.type=3}j(e){this.element[this.name]=e===g?void 0:e}}let at=class extends ie{constructor(){super(...arguments),this.type=4}j(e){this.element.toggleAttribute(this.name,!!e&&e!==g)}};class ot extends ie{constructor(e,t,i,r,n){super(e,t,i,r,n),this.type=5}_$AI(e,t=this){if((e=N(this,e,t,0)??g)===H)return;const i=this._$AH,r=e===g&&i!==g||e.capture!==i.capture||e.once!==i.once||e.passive!==i.passive,n=e!==g&&(i===g||r);r&&this.element.removeEventListener(this.name,this,i),n&&this.element.addEventListener(this.name,this,e),this._$AH=e}handleEvent(e){var t;typeof this._$AH=="function"?this._$AH.call(((t=this.options)==null?void 0:t.host)??this.element,e):this._$AH.handleEvent(e)}}class lt{constructor(e,t,i){this.element=e,this.type=6,this._$AN=void 0,this._$AM=t,this.options=i}get _$AU(){return this._$AM._$AU}_$AI(e){N(this,e)}}const oe=B.litHtmlPolyfillSupport;oe==null||oe(W,X),(B.litHtmlVersions??(B.litHtmlVersions=[])).push("3.3.3");const ct=(s,e,t)=>{const i=(t==null?void 0:t.renderBefore)??e;let r=i._$litPart$;if(r===void 0){const n=(t==null?void 0:t.renderBefore)??null;i._$litPart$=r=new X(e.insertBefore(G(),n),n,void 0,t??{})}return r._$AI(s),r};/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */const M=globalThis;class E extends O{constructor(){super(...arguments),this.renderOptions={host:this},this._$Do=void 0}createRenderRoot(){var t;const e=super.createRenderRoot();return(t=this.renderOptions).renderBefore??(t.renderBefore=e.firstChild),e}update(e){const t=this.render();this.hasUpdated||(this.renderOptions.isConnected=this.isConnected),super.update(e),this._$Do=ct(t,this.renderRoot,this.renderOptions)}connectedCallback(){var e;super.connectedCallback(),(e=this._$Do)==null||e.setConnected(!0)}disconnectedCallback(){var e;super.disconnectedCallback(),(e=this._$Do)==null||e.setConnected(!1)}render(){return H}}var De;E._$litElement$=!0,E.finalized=!0,(De=M.litElementHydrateSupport)==null||De.call(M,{LitElement:E});const le=M.litElementPolyfillSupport;le==null||le({LitElement:E});(M.litElementVersions??(M.litElementVersions=[])).push("4.2.2");/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */const re=s=>(e,t)=>{t!==void 0?t.addInitializer(()=>{customElements.define(s,e)}):customElements.define(s,e)};/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */const dt={attribute:!0,type:String,converter:ee,reflect:!1,hasChanged:fe},ht=(s=dt,e,t)=>{const{kind:i,metadata:r}=t;let n=globalThis.litPropertyMetadata.get(r);if(n===void 0&&globalThis.litPropertyMetadata.set(r,n=new Map),i==="setter"&&((s=Object.create(s)).wrapped=!0),n.set(t.name,s),i==="accessor"){const{name:a}=t;return{set(l){const o=e.get.call(this);e.set.call(this,l),this.requestUpdate(a,o,s,!0,l)},init(l){return l!==void 0&&this.C(a,void 0,s,l),l}}}if(i==="setter"){const{name:a}=t;return function(l){const o=this[a];e.call(this,l),this.requestUpdate(a,o,s,!0,l)}}throw Error("Unsupported decorator location: "+i)};function x(s){return(e,t)=>typeof t=="object"?ht(s,e,t):((i,r,n)=>{const a=r.hasOwnProperty(n);return r.constructor.createProperty(n,i),a?Object.getOwnPropertyDescriptor(r,n):void 0})(s,e,t)}/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */function T(s){return x({...s,state:!0,attribute:!1})}/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */const Pe=(s,e,t)=>(t.configurable=!0,t.enumerable=!0,Reflect.decorate&&typeof e!="object"&&Object.defineProperty(s,e,t),t);/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */function Ve(s,e){return(t,i,r)=>{const n=a=>{var l;return((l=a.renderRoot)==null?void 0:l.querySelector(s))??null};if(e){const{get:a,set:l}=typeof i=="object"?t:r??(()=>{const o=Symbol();return{get(){return this[o]},set(d){this[o]=d}}})();return Pe(t,i,{get(){let o=a.call(this);return o===void 0&&(o=n(this),(o!==null||this.hasUpdated)&&l.call(this,o)),o}})}return Pe(t,i,{get(){return n(this)}})}}const pt={guitar:z`
+    <rect x="21" y="2" width="6" height="8" rx="1.5" />
+    <path d="M24 10v11" />
+    <path d="M24 21c-6 0-8 4-6 8-5 2.5-5 15 6 15.5 11-.5 11-13 6-15.5 2-4 0-8-6-8z" />
+    <circle cx="24" cy="31" r="2.6" />
+    <path d="M20.5 39h7" />`,bass:z`
+    <path d="M22 2h4v9h-4z" />
+    <circle cx="20" cy="4" r="0.9" /><circle cx="20" cy="8" r="0.9" />
+    <path d="M24 11v14" />
+    <path d="M21 25c-6-3-9 2-6 7-4 4-1 13 8 12.5 9 .5 12-7 7-11.5 4-4 2-10-3-7-1-1.5-4-2-6-1z" />
+    <path d="M20 32h8M20.5 37h7" />`,violin:z`
+    <circle cx="24" cy="4" r="2.4" />
+    <path d="M24 6.5v11" />
+    <path d="M24 17.5c-6 0-8 3.5-6 7.5-2 1-2 3 0 4-4.5 2-4 14.5 6 14.5s10.5-12.5 6-14.5c2-1 2-3 0-4 2-4 0-7.5-6-7.5z" />
+    <path d="M20.5 30.5c1.2 1.5-.8 3.5.3 5M27.5 30.5c-1.2 1.5.8 3.5-.3 5" />
+    <path d="M22.5 40.5h3" />`,chromatic:z`
+    <rect x="5" y="13" width="38" height="23" rx="1.5" />
+    <path d="M11.3 13v23M17.7 13v23M24 13v23M30.3 13v23M36.7 13v23" />
+    <rect x="9.3" y="13" width="4" height="13" class="fill" />
+    <rect x="15.7" y="13" width="4" height="13" class="fill" />
+    <rect x="28.3" y="13" width="4" height="13" class="fill" />
+    <rect x="34.7" y="13" width="4" height="13" class="fill" />`},gt=.15,ut=.01;function ft(s,e,t,i){let r=0;for(let p=0;p<s.length;p++)r+=s[p]*s[p];if(Math.sqrt(r/s.length)<ut)return null;const n=Math.min(Math.floor(e/t),Math.floor(s.length/2)),a=Math.max(2,Math.floor(e/i)),l=s.length-n,o=new Float32Array(n+1);o[0]=1;let d=0;for(let p=1;p<=n;p++){let u=0;for(let v=0;v<l;v++){const U=s[v]-s[v+p];u+=U*U}d+=u,o[p]=d?u*p/d:1}let c=a;for(;c<=n&&o[c]>=gt;)c++;if(c>n)return null;for(;c+1<=n&&o[c+1]<o[c];)c++;let h=c;if(c>1&&c<n){const[p,u,v]=[o[c-1],o[c],o[c+1]],U=p-2*u+v;U&&(h=c+(p-v)/(2*U))}return e/h}const ke=4096,mt=50,bt=5,Te=400;class xt{constructor(){this.minHz=30,this.maxHz=2e3,this.buffer=new Float32Array(ke),this.recent=[],this.lastHeard=-1/0}get running(){return this.timerId!==void 0}async start(){this.running||(this.stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:!1,noiseSuppression:!1,autoGainControl:!1}}),this.ctx=new AudioContext,this.analyser=this.ctx.createAnalyser(),this.analyser.fftSize=ke,this.ctx.createMediaStreamSource(this.stream).connect(this.analyser),this.recent=[],this.lastHeard=-1/0,this.timerId=window.setInterval(()=>this.detect(),mt))}stop(){var e,t;window.clearInterval(this.timerId),this.timerId=void 0,(e=this.stream)==null||e.getTracks().forEach(i=>i.stop()),(t=this.ctx)==null||t.close(),this.stream=void 0,this.ctx=void 0,this.analyser=void 0}detect(){var i,r;this.analyser.getFloatTimeDomainData(this.buffer);const e=ft(this.buffer,this.ctx.sampleRate,this.minHz,this.maxHz),t=performance.now();if(e){t-this.lastHeard>Te&&(this.recent=[]),this.lastHeard=t,this.recent=[...this.recent,e].slice(-bt);const n=[...this.recent].sort((a,l)=>a-l);(i=this.onPitch)==null||i.call(this,n[n.length>>1])}else t-this.lastHeard>Te&&((r=this.onPitch)==null||r.call(this,null))}}const y=[{id:"guitar",label:"Guitar",strings:[40,45,50,55,59,64],minHz:60,maxHz:1e3},{id:"bass",label:"Bass",strings:[28,33,38,43],minHz:30,maxHz:400},{id:"violin",label:"Violin",strings:[55,62,69,76],minHz:150,maxHz:2e3},{id:"chromatic",label:"Chromatic",strings:[],minHz:30,maxHz:2e3}],vt=["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];function Fe(s){return vt[(s%12+12)%12]}function $t(s,e,t){const i=69+12*Math.log2(s/e);let r=Math.round(i),n=-1;t.strings.length&&(n=t.strings.reduce((l,o,d)=>Math.abs(i-o)<Math.abs(i-t.strings[l])?d:l,0),r=t.strings[n]);const a=Fe(r);return{letter:a[0],sharp:a.length>1,octave:Math.floor(r/12)-1,cents:(i-r)*100,stringIndex:n}}var yt=Object.defineProperty,wt=Object.getOwnPropertyDescriptor,be=(s,e,t,i)=>{for(var r=i>1?void 0:i?wt(e,t):e,n=s.length-1,a;n>=0;n--)(a=s[n])&&(r=(i?a(e,t,r):a(r))||r);return i&&r&&yt(e,t,r),r};const _t=40,Be=72,D=7,f=1.2,j=D/2,L=_t-D/2,ce=D/2,q=Be/2,de=Be-D/2;function he(s,e,t){const i=D/2;return`${e},${s} ${e+i},${s-i} ${t-i},${s-i} ${t},${s} ${t-i},${s+i} ${e+i},${s+i}`}function Z(s,e,t){const i=D/2;return`${s},${e} ${s+i},${e+i} ${s+i},${t-i} ${s},${t} ${s-i},${t-i} ${s-i},${e+i}`}const Et={a:he(ce,j+f,L-f),b:Z(L,ce+f,q-f),c:Z(L,q+f,de-f),d:he(de,j+f,L-f),e:Z(j,q+f,de-f),f:Z(j,ce+f,q-f),g:he(q,j+f,L-f)},At={0:"abcdef",1:"bc",2:"abged",3:"abgcd",4:"fgbc",5:"afgcd",6:"afgedc",7:"abc",8:"abcdefg",9:"abcdfg",A:"abcefg",b:"cdefg",C:"adef",d:"bcdeg",E:"adefg",F:"aefg",G:"acdef",r:"eg","-":"g",_:"d"," ":""};function St(s){const e=[];for(const t of s)t==="."&&e.length?e[e.length-1].dp=!0:e.push({ch:t,dp:!1});return e}let Y=class extends E{constructor(){super(...arguments),this.text="",this.decimals=!1}render(){return St(this.text).map(({ch:s,dp:e})=>{const t=At[s]??"";return m`<svg viewBox="-9 -1 52 74" aria-hidden="true">
+        <g transform="skewX(-6)">
+          ${Object.entries(Et).map(([i,r])=>z`<polygon points=${r} class=${t.includes(i)?"on":"off"}></polygon>`)}
+        </g>
+        ${this.decimals?z`<circle cx="45" cy="68.5" r="3.6" class=${e?"on":"off"}></circle>`:null}
+      </svg>`})}};Y.styles=se`
+    :host {
+      display: inline-flex;
+      gap: 0.35em;
+    }
+    svg {
+      height: 1em;
+      width: auto;
+      overflow: visible;
+      filter: drop-shadow(0 0 0.06em rgba(255, 45, 22, 0.75));
+    }
+    .on {
+      fill: #ff3a1f;
+    }
+    .off {
+      fill: rgba(255, 58, 31, 0.07);
+    }
+  `;be([x()],Y.prototype,"text",2);be([x({type:Boolean})],Y.prototype,"decimals",2);Y=be([re("segment-display")],Y);var Ct=Object.defineProperty,Mt=Object.getOwnPropertyDescriptor,J=(s,e,t,i)=>{for(var r=i>1?void 0:i?Mt(e,t):e,n=s.length-1,a;n>=0;n--)(a=s[n])&&(r=(i?a(e,t,r):a(r))||r);return i&&r&&Ct(e,t,r),r};const V=10,Oe=5;function Pt(s){const e=Math.abs(s);return e===0?"green":e<=3?"yellow":e<=6?"orange":"red"}let k=class extends E{constructor(){super(...arguments),this.reading=null,this.frequency=null,this.message=""}render(){const{reading:s}=this,e=s?Math.max(-V,Math.min(V,Math.round(s.cents/Oe))):null,t=Array.from({length:V*2+1},(r,n)=>n-V),i=this.frequency?this.frequency.toFixed(1).padStart(6," "):" ---.-";return m`
+      <div class="glass" role="status" aria-live="polite" aria-label=${this.describe()}>
+        <div class="note-row" aria-hidden="true">
+          <span class="accidental">♭</span>
+          <div class="note">
+            <segment-display class="letter" .text=${s?s.letter:"-"}></segment-display>
+            <div class="side">
+              <span class="sharp ${s!=null&&s.sharp?"on":""}">♯</span>
+              <segment-display class="octave" .text=${s?String(s.octave):" "}></segment-display>
+            </div>
+          </div>
+          <span class="accidental sharp-side">♯</span>
+        </div>
+
+        <div class="meter" aria-hidden="true">
+          ${t.map(r=>m`<span class="led ${Pt(r)} ${r===0?"center":""} ${r===e?"on":""}"></span>`)}
+        </div>
+        <div class="scale" aria-hidden="true">
+          ${t.map(r=>r%5===0?m`<span>${r>0?"+":""}${r*Oe}</span>`:m`<span></span>`)}
+        </div>
+
+        <div class="info-row" aria-hidden="true">
+          ${this.message?m`<span class="message">${this.message}</span>`:m`<div class="strings">
+                ${this.tuning.strings.length?this.tuning.strings.map((r,n)=>m`<span class=${(s==null?void 0:s.stringIndex)===n?"on":""}>${Fe(r)}</span>`):m`<span>Chromatic</span>`}
+              </div>`}
+          <div class="frequency">
+            <segment-display decimals .text=${i}></segment-display>
+            <span>Hz</span>
+          </div>
+        </div>
+      </div>
+    `}describe(){if(this.message)return this.message;const{reading:s}=this;if(!s)return"No note detected";const e=`${s.letter}${s.sharp?" sharp":""} ${s.octave}`,t=Math.round(s.cents);if(t===0)return`${e}, in tune`;const i=Math.abs(t);return`${e}, ${i} ${i===1?"cent":"cents"} ${t<0?"flat":"sharp"}`}};k.styles=se`
+    :host {
+      display: block;
+    }
+    .glass {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.7rem;
+      padding: 1rem 1.4rem 0.9rem;
+      border-radius: 4px;
+      color: rgba(232, 214, 196, 0.42);
+      background:
+        repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.18) 0 1px, transparent 1px 3px),
+        radial-gradient(ellipse at 50% 45%, #3a0e08 0%, #1a0604 55%, #0d0302 100%);
+      box-shadow:
+        inset 0 3px 12px rgba(0, 0, 0, 0.95),
+        inset 0 0 0 1px rgba(0, 0, 0, 0.8),
+        0 0 0 4px #141412,
+        0 0 0 5px #050505,
+        0 -1px 0 5px rgba(0, 0, 0, 0.5),
+        0 1px 0 5px rgba(255, 255, 255, 0.09);
+      overflow: hidden;
+    }
+    /* Glass reflection */
+    .glass::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(170deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.025) 34%, transparent 34.5%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent 18%);
+      pointer-events: none;
+    }
+
+    .note-row {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+    }
+    .accidental {
+      font: 400 2rem/1 Georgia, 'Times New Roman', serif;
+    }
+    .accidental.sharp-side {
+      justify-self: end;
+    }
+    .note {
+      display: flex;
+      align-items: flex-end;
+      gap: 0.35rem;
+    }
+    .note .letter {
+      font-size: var(--note-size, 4.4rem);
+    }
+    .note .side {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-self: stretch;
+      padding: 0.15rem 0 0.1rem;
+    }
+    .sharp {
+      font: 700 1.5rem/1 Georgia, 'Times New Roman', serif;
+      color: rgba(255, 58, 31, 0.1);
+    }
+    .sharp.on {
+      color: #ff3a1f;
+      text-shadow: 0 0 6px rgba(255, 45, 22, 0.8);
+    }
+    .note .octave {
+      font-size: calc(var(--note-size, 4.4rem) * 0.38);
+    }
+
+    .meter,
+    .scale {
+      display: grid;
+      grid-template-columns: repeat(${V*2+1}, minmax(0, 1fr));
+      justify-items: center;
+    }
+    .led {
+      width: var(--led-size, 15px);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: radial-gradient(circle at 50% 50%, var(--off-lit), var(--off) 70%);
+      box-shadow:
+        0 0 0 1.5px #0a0303,
+        inset 0 1px 2px rgba(0, 0, 0, 0.7);
+    }
+    .led.center {
+      width: calc(var(--led-size, 15px) * 1.35);
+    }
+    .led.green {
+      --off: #0c2410;
+      --off-lit: #13361a;
+      --on: #3ef06a;
+      --glow: rgba(50, 230, 90, 0.75);
+    }
+    .led.yellow {
+      --off: #2a2208;
+      --off-lit: #3a300c;
+      --on: #ffd83a;
+      --glow: rgba(255, 210, 50, 0.7);
+    }
+    .led.orange {
+      --off: #2c1407;
+      --off-lit: #3e1d0a;
+      --on: #ff8a2a;
+      --glow: rgba(255, 130, 40, 0.7);
+    }
+    .led.red {
+      --off: #2c0906;
+      --off-lit: #3e0e09;
+      --on: #ff3a1f;
+      --glow: rgba(255, 50, 25, 0.75);
+    }
+    .led.on {
+      background: radial-gradient(circle at 50% 45%, #fff 0%, var(--on) 45%, var(--on) 100%);
+      box-shadow:
+        0 0 0 1.5px #0a0303,
+        0 0 10px 3px var(--glow),
+        0 0 24px 6px var(--glow);
+    }
+    .scale {
+      font: 700 0.6rem/1 var(--label-font);
+      letter-spacing: 0.04em;
+    }
+
+    .info-row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1rem;
+      min-height: 1.6rem;
+    }
+    .strings {
+      display: flex;
+      gap: var(--string-gap, 0.8rem);
+      font: 800 0.8rem/1 var(--label-font);
+      letter-spacing: 0.06em;
+    }
+    .strings .on {
+      color: #ff3a1f;
+      text-shadow: 0 0 6px rgba(255, 45, 22, 0.8);
+    }
+    .message {
+      font: 800 0.72rem/1 var(--label-font);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #ff3a1f;
+      text-shadow: 0 0 6px rgba(255, 45, 22, 0.7);
+    }
+    .frequency {
+      display: flex;
+      align-items: flex-end;
+      gap: 0.4rem;
+      font: 700 0.65rem/1 var(--label-font);
+      letter-spacing: 0.14em;
+    }
+    .frequency segment-display {
+      font-size: var(--freq-size, 1.5rem);
+    }
+  `;J([x({attribute:!1})],k.prototype,"reading",2);J([x({attribute:!1})],k.prototype,"tuning",2);J([x({type:Number})],k.prototype,"frequency",2);J([x()],k.prototype,"message",2);k=J([re("tuner-meter")],k);class kt{constructor(e,t,i){this.getValue=e,this.setValue=t,this.options=i,this.dragged=!1,this.pointerDown=r=>{r.button===0&&(r.currentTarget.setPointerCapture(r.pointerId),this.start={x:r.clientX,y:r.clientY,value:this.getValue()},this.dragged=!1)},this.pointerMove=r=>{if(!this.start)return;const n=r.clientX-this.start.x,a=this.start.y-r.clientY;if(!this.dragged&&Math.hypot(n,a)<(this.options.thresholdPx??0))return;this.dragged=!0;const l=r.shiftKey?this.options.finePerPx:this.options.perPx;this.setValue(Math.round(this.start.value+(n+a)*l))},this.pointerUp=()=>{this.start=void 0},this.wheel=r=>{r.preventDefault();const n=r.deltaY||r.deltaX;n&&this.setValue(this.getValue()+(n<0?1:-1))}}}var Tt=Object.defineProperty,Ot=Object.getOwnPropertyDescriptor,$=(s,e,t,i)=>{for(var r=i>1?void 0:i?Ot(e,t):e,n=s.length-1,a;n>=0;n--)(a=s[n])&&(r=(i?a(e,t,r):a(r))||r);return i&&r&&Tt(e,t,r),r};let b=class extends E{constructor(){super(...arguments),this.value=0,this.min=0,this.max=999,this.defaultValue=0,this.unit="",this.label="Value",this.editing=!1,this.buffer="",this.gestures=new kt(()=>this.value,s=>this.emit(s),{perPx:.25,finePerPx:.05,thresholdPx:4})}render(){const s=String(this.max).length,e=this.editing?(this.buffer+"_".repeat(s)).slice(0,s):String(this.value).padStart(s," ");return m`
+      <div
+        class="glass ${this.editing?"editing":""}"
+        role="button"
+        tabindex="0"
+        title="Click to type. Drag or scroll to adjust, Shift for fine control, double-click to reset."
+        aria-label="${this.label} ${this.value} ${this.unit}. Activate to type a new value."
+        @click=${()=>!this.gestures.dragged&&this.startEdit()}
+        @dblclick=${()=>{this.finish(!1),this.emit(this.defaultValue)}}
+        @pointerdown=${this.gestures.pointerDown}
+        @pointermove=${this.gestures.pointerMove}
+        @pointerup=${this.gestures.pointerUp}
+        @pointercancel=${this.gestures.pointerUp}
+        @wheel=${t=>this.editing?t.preventDefault():this.gestures.wheel(t)}
+        @keydown=${t=>t.key==="Enter"&&this.startEdit()}
+      >
+        <segment-display .text=${e}></segment-display>
+        <span class="unit">${this.unit}</span>
+        <input
+          inputmode="numeric"
+          autocomplete="off"
+          aria-label="${this.label} in ${this.unit}, ${this.min} to ${this.max}"
+          @input=${this.onInput}
+          @keydown=${this.onInputKeyDown}
+          @blur=${()=>this.finish(!0)}
+        />
+      </div>
+    `}async startEdit(){this.editing||(this.buffer="",this.editing=!0,await this.updateComplete,this.input.value="",this.input.focus())}onInput(){this.buffer=this.input.value.replace(/\D/g,"").slice(0,String(this.max).length),this.input.value=this.buffer}onInputKeyDown(s){(s.key==="Enter"||s.key==="Escape")&&(s.preventDefault(),s.stopPropagation(),this.finish(s.key==="Enter"))}finish(s){this.editing&&(this.editing=!1,s&&this.buffer&&this.emit(Number(this.buffer)),this.shadowRoot.activeElement===this.input&&this.glass.focus())}emit(s){const e=Math.min(this.max,Math.max(this.min,s));e!==this.value&&this.dispatchEvent(new CustomEvent("value-change",{detail:e,bubbles:!0,composed:!0}))}};b.styles=se`
+    :host {
+      display: block;
+    }
+    .glass {
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 0.6rem;
+      height: 100%;
+      box-sizing: border-box;
+      padding: 0.9rem 1.1rem 0.8rem;
+      border-radius: 4px;
+      background:
+        repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.18) 0 1px, transparent 1px 3px),
+        radial-gradient(ellipse at 50% 60%, #3a0e08 0%, #1a0604 55%, #0d0302 100%);
+      /* Recessed window: dark gasket, bevelled plastic frame, highlight on the panel lip */
+      box-shadow:
+        inset 0 3px 12px rgba(0, 0, 0, 0.95),
+        inset 0 0 0 1px rgba(0, 0, 0, 0.8),
+        0 0 0 4px #141412,
+        0 0 0 5px #050505,
+        0 -1px 0 5px rgba(0, 0, 0, 0.5),
+        0 1px 0 5px rgba(255, 255, 255, 0.09);
+      cursor: ns-resize;
+      touch-action: none;
+      outline: none;
+      overflow: hidden;
+    }
+    /* Glass reflection */
+    .glass::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(168deg, rgba(255, 255, 255, 0.11) 0%, rgba(255, 255, 255, 0.03) 38%, transparent 38.5%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent 20%);
+      pointer-events: none;
+    }
+    .glass:focus-visible {
+      box-shadow:
+        inset 0 3px 12px rgba(0, 0, 0, 0.95),
+        0 0 0 4px #141412,
+        0 0 0 6px #dcb544;
+    }
+    segment-display {
+      font-size: var(--digit-size, clamp(3rem, 10vw, 4rem));
+    }
+    .editing segment-display {
+      animation: pulse 1.1s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      50% {
+        opacity: 0.55;
+      }
+    }
+    .unit {
+      font: 700 0.7rem/1 var(--label-font);
+      letter-spacing: 0.15em;
+      color: #ff3a1f;
+      opacity: 0.8;
+      padding-bottom: 0.2rem;
+    }
+    input {
+      position: absolute;
+      opacity: 0;
+      width: 1px;
+      height: 1px;
+      pointer-events: none;
+    }
+  `;$([x({type:Number})],b.prototype,"value",2);$([x({type:Number})],b.prototype,"min",2);$([x({type:Number})],b.prototype,"max",2);$([x({type:Number,attribute:"default-value"})],b.prototype,"defaultValue",2);$([x()],b.prototype,"unit",2);$([x()],b.prototype,"label",2);$([T()],b.prototype,"editing",2);$([T()],b.prototype,"buffer",2);$([Ve("input")],b.prototype,"input",2);$([Ve(".glass")],b.prototype,"glass",2);b=$([re("value-display")],b);var zt=Object.defineProperty,Ht=Object.getOwnPropertyDescriptor,R=(s,e,t,i)=>{for(var r=i>1?void 0:i?Ht(e,t):e,n=s.length-1,a;n>=0;n--)(a=s[n])&&(r=(i?a(e,t,r):a(r))||r);return i&&r&&zt(e,t,r),r};const ze=420,He=460,pe=440,Ne="tuner-settings";let A=class extends E{constructor(){super(),this.reference=pe,this.mode="guitar",this.running=!1,this.frequency=null,this.message="",this.engine=new xt,this.onKeyDown=s=>{s.composedPath()[0]instanceof HTMLInputElement||s.ctrlKey||s.metaKey||s.altKey||(s.code==="Space"?(s.preventDefault(),s.repeat||this.toggle()):/^[1-9]$/.test(s.key)&&Number(s.key)<=y.length&&this.setMode(y[Number(s.key)-1].id))},this.onKeyUp=s=>{s.code==="Space"&&!(s.composedPath()[0]instanceof HTMLInputElement)&&s.preventDefault()},this.loadSettings(),this.applyRange(),this.engine.onPitch=s=>this.frequency=s}connectedCallback(){super.connectedCallback(),window.addEventListener("keydown",this.onKeyDown),window.addEventListener("keyup",this.onKeyUp)}disconnectedCallback(){super.disconnectedCallback(),window.removeEventListener("keydown",this.onKeyDown),window.removeEventListener("keyup",this.onKeyUp),this.engine.stop()}get tuning(){return y.find(s=>s.id===this.mode)}render(){const s=this.running&&this.frequency?$t(this.frequency,this.reference,this.tuning):null;return m`
+      <div class="chassis">
+        <div class="cheek left"></div>
+        <div class="device">
+          <header>
+            <span class="screw tl"></span>
+            <span class="screw tr"></span>
+            <div class="brand">Tuner<span class="model">FS-2</span></div>
+            <div class="tagline">Chromatic Instrument Tuner</div>
+          </header>
+
+          <section class="meter-section">
+            <tuner-meter
+              .reading=${s}
+              .tuning=${this.tuning}
+              .frequency=${this.running?this.frequency:null}
+              .message=${this.message}
+            ></tuner-meter>
+          </section>
+
+          <section class="controls">
+            <value-display
+              .value=${this.reference}
+              .min=${ze}
+              .max=${He}
+              .defaultValue=${pe}
+              unit="Hz"
+              label="Reference pitch"
+              @value-change=${e=>this.setReference(e.detail)}
+            ></value-display>
+            <button class="key start" @click=${this.toggle} aria-pressed=${this.running} aria-label="Tuner on / off">
+              <span class="key-led ${this.running?"on":""}"></span>
+            </button>
+            <div class="led-cell">
+              <div class="bezel"><div class="led ${this.running?"on":""}" role="presentation"></div></div>
+            </div>
+
+            <div class="label ref-label">Ref. A4 <span class="dim">· click to type · drag or scroll</span></div>
+            <div class="label start-label">On / Off</div>
+            <div class="label active-label">Active</div>
+          </section>
+
+          <section class="modes" role="radiogroup" aria-label="Tuning">
+            <div class="label title">Tuning</div>
+            ${y.map(e=>m`
+                <button
+                  class="key mode"
+                  role="radio"
+                  aria-checked=${e.id===this.mode}
+                  aria-label=${e.label}
+                  @click=${()=>this.setMode(e.id)}
+                >
+                  <span class="key-led ${e.id===this.mode?"on":""}"></span>
+                </button>
+              `)}
+            ${y.map(e=>m`<svg class="icon" viewBox="0 0 48 48" aria-hidden="true">${pt[e.id]}</svg>`)}
+            ${y.map(e=>m`<div class="label caption">${e.label}</div>`)}
+          </section>
+
+          <footer>
+            <span class="screw bl"></span>
+            <span class="screw br"></span>
+            <span class="hints">
+              <kbd>Space</kbd> on/off &nbsp;·&nbsp; <kbd>1</kbd>–<kbd>4</kbd> tuning &nbsp;·&nbsp; double-click the
+              reference to reset to 440 Hz
+            </span>
+          </footer>
+        </div>
+        <div class="cheek right"></div>
+      </div>
+    `}async toggle(){if(this.engine.running){this.engine.stop(),this.running=!1,this.frequency=null;return}this.message="";try{await this.engine.start(),this.running=!0}catch(s){this.message=Nt(s)}}setReference(s){this.reference=s,this.applyRange(),this.saveSettings()}setMode(s){this.mode=s,this.applyRange(),this.saveSettings()}applyRange(){const s=this.reference/pe;this.engine.minHz=this.tuning.minHz*s,this.engine.maxHz=this.tuning.maxHz*s}loadSettings(){try{const s=JSON.parse(localStorage.getItem(Ne)??"{}");typeof s.reference=="number"&&(this.reference=Math.min(He,Math.max(ze,s.reference))),y.some(e=>e.id===s.mode)&&(this.mode=s.mode)}catch{}}saveSettings(){try{const{reference:s,mode:e}=this;localStorage.setItem(Ne,JSON.stringify({reference:s,mode:e}))}catch{}}};A.styles=se`
+    :host {
+      --ink: #e8e1cc;
+      --yellow: #dcb544;
+      --label-font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      /* Procedural textures (inline SVG noise) so the page needs no image requests. */
+      --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .32 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      --brushed: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='120'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.002 .9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 1.1 0 0 0 -.45'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23b)'/%3E%3C/svg%3E");
+      --wood: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='600'%3E%3Cfilter id='w'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.45 .006' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .1 0 0 0 0 .04 0 0 0 0 .01 2.6 0 0 0 -.95'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23w)'/%3E%3C/svg%3E");
+      display: block;
+      width: min(100%, 820px);
+      font-family: var(--label-font);
+      color: var(--ink);
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    /* Case: walnut cheeks either side of the metal panel */
+    .chassis {
+      display: flex;
+      border-radius: 12px;
+      box-shadow:
+        0 2px 0 rgba(255, 255, 255, 0.04),
+        0 28px 50px rgba(0, 0, 0, 0.7),
+        0 60px 90px rgba(0, 0, 0, 0.45);
+    }
+    .cheek {
+      flex: 0 0 34px;
+      background:
+        linear-gradient(90deg, rgba(255, 225, 190, 0.14), transparent 30%, transparent 70%, rgba(0, 0, 0, 0.35)),
+        var(--wood),
+        repeating-linear-gradient(
+          90deg,
+          rgba(0, 0, 0, 0.12) 0 1px,
+          transparent 1px 3px,
+          rgba(255, 190, 140, 0.06) 3px 4px,
+          transparent 4px 7px
+        ),
+        #7d4727;
+      background-size: auto, 80px 600px, auto, auto;
+    }
+    .cheek.left {
+      border-radius: 12px 0 0 12px;
+      box-shadow:
+        inset 2px 0 2px rgba(255, 220, 180, 0.18),
+        inset -3px 0 4px rgba(0, 0, 0, 0.55);
+    }
+    .cheek.right {
+      border-radius: 0 12px 12px 0;
+      box-shadow:
+        inset -2px 0 2px rgba(255, 220, 180, 0.12),
+        inset 3px 0 4px rgba(0, 0, 0, 0.55);
+    }
+
+    .device {
+      position: relative;
+      flex: 1;
+      min-width: 0;
+      background:
+        var(--grain),
+        radial-gradient(ellipse at 30% 0%, rgba(255, 255, 255, 0.07), transparent 60%),
+        linear-gradient(180deg, #3a3935 0%, #2d2c29 45%, #242320 100%);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.14),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.6);
+    }
+
+    /* Phillips screws in the corners */
+    .screw {
+      position: absolute;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #f4f4f0, #a9a9a3 45%, #5f5f5a 100%);
+      box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.6),
+        0 1px 2px rgba(0, 0, 0, 0.7),
+        inset 0 -1px 1px rgba(0, 0, 0, 0.4);
+      z-index: 1;
+    }
+    .screw::before,
+    .screw::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 8px;
+      height: 2px;
+      margin: -1px 0 0 -4px;
+      background: #3d3d39;
+      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
+      transform: rotate(var(--angle, 20deg));
+    }
+    .screw::after {
+      transform: rotate(calc(var(--angle, 20deg) + 90deg));
+    }
+    .screw.tl {
+      top: 9px;
+      left: 9px;
+      --angle: 20deg;
+    }
+    .screw.tr {
+      top: 9px;
+      right: 9px;
+      --angle: 65deg;
+    }
+    .screw.bl {
+      bottom: 9px;
+      left: 9px;
+      --angle: 40deg;
+    }
+    .screw.br {
+      bottom: 9px;
+      right: 9px;
+      --angle: 5deg;
+    }
+
+    /* Brushed aluminium name strip */
+    header {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.95rem 2.4rem 0.85rem;
+      color: #26251f;
+      background:
+        var(--brushed),
+        linear-gradient(90deg, #9d9d97 0%, #d9d9d3 22%, #b5b5af 45%, #e4e4de 68%, #c2c2bc 85%, #9a9a94 100%);
+      background-size: 600px 120px, auto;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.7),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.35),
+        0 2px 3px rgba(0, 0, 0, 0.55);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-size: clamp(1.3rem, 4vw, 1.85rem);
+      font-weight: 800;
+      font-style: italic;
+      letter-spacing: -0.015em;
+      text-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.6),
+        0 -1px 0 rgba(0, 0, 0, 0.15);
+    }
+    .model {
+      padding: 0.12rem 0.5rem 0.1rem;
+      font-style: normal;
+      font-size: 0.68em;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      color: #f3ecd8;
+      text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.35);
+      background: linear-gradient(180deg, #d24a35, #a8301f);
+      border-radius: 3px;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+        0 1px 0 rgba(255, 255, 255, 0.5);
+    }
+    .tagline {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      opacity: 0.7;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    }
+
+    /* Silkscreened panel text */
+    .label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      text-align: center;
+      white-space: nowrap;
+      opacity: 0.92;
+      text-shadow: 0 0 0.6px rgba(232, 225, 204, 0.6);
+    }
+    .label .dim {
+      opacity: 0.55;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: none;
+    }
+
+    .meter-section {
+      padding: 1.9rem 2.4rem 0;
+    }
+
+    /* Reference display, start/stop key and active LED share one row; labels share the next. */
+    .controls {
+      --panel-height: 96px;
+      --digit-size: 3.9rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      grid-template-rows: var(--panel-height) auto;
+      justify-items: center;
+      gap: 0.75rem 1.5rem;
+      padding: 1.7rem 2.4rem 1.6rem;
+    }
+    .controls value-display {
+      justify-self: stretch;
+    }
+    .led-cell {
+      display: flex;
+      align-items: center;
+      padding: 0 0.5rem;
+    }
+
+    /* Active LED: domed lens in a chrome bezel */
+    .bezel {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: conic-gradient(from 200deg, #6d6d68, #f2f2ee, #8b8b86, #e0e0db, #6d6d68, #cfcfca, #6d6d68);
+      box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.7),
+        0 3px 5px rgba(0, 0, 0, 0.6),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+    }
+    .led {
+      position: relative;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 50% 55%, #163a1d, #08190c 75%);
+      box-shadow:
+        0 0 0 2px #121211,
+        inset 0 2px 4px rgba(0, 0, 0, 0.8);
+    }
+    .led::after {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 5px;
+      width: 9px;
+      height: 6px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0) 70%);
+    }
+    .led.on {
+      background: radial-gradient(circle at 50% 55%, #e6ffe6 0%, #45f06a 35%, #0f9c2c 80%);
+      box-shadow:
+        0 0 0 2px #121211,
+        0 0 16px 6px rgba(50, 230, 90, 0.5),
+        0 0 40px 10px rgba(50, 230, 90, 0.2);
+    }
+
+    /* Plastic keycaps seated in dark panel cut-outs */
+    button {
+      font: inherit;
+      color: inherit;
+      -webkit-tap-highlight-color: transparent;
+    }
+    button:focus-visible {
+      outline: 2px solid var(--yellow);
+      outline-offset: 4px;
+    }
+    .key {
+      --cap-top: #f2ead4;
+      --cap-mid: #e2d8bf;
+      --cap-low: #c6bb9f;
+      position: relative;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background:
+        var(--grain),
+        linear-gradient(180deg, var(--cap-top) 0%, var(--cap-mid) 55%, var(--cap-low) 100%);
+      background-size: 120px 120px, auto;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.75),
+        inset 0 -5px 0 rgba(0, 0, 0, 0.16),
+        inset 0 -6px 3px rgba(0, 0, 0, 0.08),
+        0 0 0 2px #0e0e0d,
+        0 0 0 3px rgba(255, 255, 255, 0.05),
+        0 5px 7px 1px rgba(0, 0, 0, 0.55);
+      transition:
+        transform 0.05s,
+        box-shadow 0.05s;
+    }
+    /* Slightly dished top face */
+    .key::before {
+      content: '';
+      position: absolute;
+      inset: 5px 5px 9px;
+      border-radius: 3px;
+      background: radial-gradient(ellipse at 50% 20%, rgba(255, 255, 255, 0.35), transparent 70%);
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.08);
+      pointer-events: none;
+    }
+    .key:active {
+      transform: translateY(2px);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.6),
+        inset 0 -3px 0 rgba(0, 0, 0, 0.16),
+        0 0 0 2px #0e0e0d,
+        0 0 0 3px rgba(255, 255, 255, 0.05),
+        0 2px 3px rgba(0, 0, 0, 0.6);
+    }
+    .key .key-led {
+      position: absolute;
+      top: 9px;
+      left: 50%;
+      width: 10px;
+      height: 10px;
+      margin-left: -5px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.55) 0 1px, transparent 2.5px),
+        radial-gradient(circle at 50% 50%, #6e2016, #360b06);
+      box-shadow:
+        0 0 0 1.5px rgba(0, 0, 0, 0.35),
+        0 1px 0 1.5px rgba(255, 255, 255, 0.35);
+      z-index: 1;
+    }
+    .key .key-led.on {
+      background:
+        radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.85) 0 1px, transparent 2.5px),
+        radial-gradient(circle at 50% 50%, #ffb39f, #ff3a1c 55%, #c01a06);
+      box-shadow:
+        0 0 0 1.5px rgba(0, 0, 0, 0.3),
+        0 0 7px 3px rgba(255, 58, 28, 0.6);
+    }
+    .start {
+      width: 96px;
+    }
+    .start-label {
+      color: #e0533d;
+    }
+
+    /* Tuning selector */
+    .modes {
+      display: grid;
+      grid-template-columns: repeat(${y.length}, minmax(0, 1fr));
+      gap: 0.6rem 1.2rem;
+      justify-items: center;
+      padding: 1.4rem 2.4rem 1.5rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.65);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.2));
+    }
+    .modes .title {
+      grid-column: 1 / -1;
+      justify-self: start;
+    }
+    .mode {
+      justify-self: stretch;
+      height: 60px;
+    }
+    .icon {
+      width: 44px;
+      height: 44px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      opacity: 0.9;
+    }
+    .icon .fill {
+      fill: currentColor;
+    }
+    .caption {
+      margin-top: -0.3rem;
+    }
+
+    footer {
+      padding: 0.7rem 2.4rem 0.8rem;
+      font-size: 0.68rem;
+      text-align: center;
+      color: rgba(232, 225, 204, 0.45);
+      border-top: 1px solid rgba(0, 0, 0, 0.6);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    }
+    kbd {
+      font: inherit;
+      font-weight: 700;
+      padding: 0 0.3em;
+      border: 1px solid rgba(232, 225, 204, 0.35);
+      border-radius: 3px;
+    }
+
+    @media (max-width: 720px) {
+      .cheek {
+        flex-basis: 12px;
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.2rem;
+        padding: 0.9rem 1.6rem 0.75rem;
+      }
+      .meter-section {
+        --note-size: 3.4rem;
+        --led-size: 8px;
+        --freq-size: 1.05rem;
+        --string-gap: 0.5rem;
+        padding: 1.25rem 1rem 0;
+      }
+      /* Reference display gets its own row; the on/off key is centred below with the LED to its right. */
+      .controls {
+        --panel-height: 80px;
+        --digit-size: 3rem;
+        grid-template-columns: 1fr auto 1fr;
+        grid-template-rows: var(--panel-height) auto var(--panel-height) auto;
+        gap: 0.6rem 0.75rem;
+        padding: 1.25rem 1rem;
+      }
+      .controls value-display {
+        grid-area: 1 / 1 / 2 / -1;
+      }
+      .controls .ref-label {
+        grid-area: 2 / 1 / 3 / -1;
+      }
+      .controls .start {
+        grid-area: 3 / 2;
+      }
+      .controls .led-cell {
+        grid-area: 3 / 3;
+      }
+      .controls .start-label {
+        grid-area: 4 / 2;
+      }
+      .controls .active-label {
+        grid-area: 4 / 3;
+      }
+      .start {
+        width: 96px;
+      }
+      .label {
+        white-space: normal;
+      }
+      .modes {
+        gap: 0.5rem 0.6rem;
+        padding: 1.25rem 1rem;
+      }
+      .mode {
+        height: 52px;
+      }
+      .icon {
+        width: 36px;
+        height: 36px;
+      }
+      /* Keyboard hints are no use on touch screens; keep the strip for the screws. */
+      footer {
+        padding: 0;
+        height: 30px;
+      }
+      .hints {
+        display: none;
+      }
+    }
+  `;R([T()],A.prototype,"reference",2);R([T()],A.prototype,"mode",2);R([T()],A.prototype,"running",2);R([T()],A.prototype,"frequency",2);R([T()],A.prototype,"message",2);A=R([re("tuner-app")],A);function Nt(s){const e=s instanceof DOMException?s.name:"";return e==="NotAllowedError"||e==="SecurityError"?"Microphone access denied":e==="NotFoundError"?"No microphone found":navigator.mediaDevices?"Microphone unavailable":"Microphone needs HTTPS"}
+</script>
+  </head>
+  <body>
+    <tuner-app></tuner-app>
+  </body>
+</html>

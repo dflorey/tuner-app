@@ -30,10 +30,27 @@
         box-sizing: border-box;
         background: transparent;
       }
-      /* Installed as an app there is no host page behind it, so give it a dark backdrop. */
+      /* Phones in portrait and short screens (phones held sideways): every pixel of height counts. */
+      @media (max-width: 720px) and (orientation: portrait) {
+        body {
+          padding-top: max(12px, env(safe-area-inset-top));
+          padding-bottom: max(12px, env(safe-area-inset-bottom));
+        }
+      }
+      @media (max-height: 520px) {
+        body {
+          padding-top: max(8px, env(safe-area-inset-top));
+          padding-bottom: max(8px, env(safe-area-inset-bottom));
+        }
+      }
+      /*
+       * Installed as an app there is no host page behind it, so give it a dark backdrop. The tuner
+       * scales itself to fit the window, so the page never needs to scroll: no scrollbars at all.
+       */
       @media (display-mode: standalone) {
         html {
           background: #1a1816;
+          overflow: hidden;
         }
         body {
           overscroll-behavior: none;
@@ -47,70 +64,70 @@
  * @license
  * Copyright 2019 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */const de=globalThis,Te=de.ShadowRoot&&(de.ShadyCSS===void 0||de.ShadyCSS.nativeShadow)&&"adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prototype,Ce=Symbol(),ze=new WeakMap;let dt=class{constructor(e,s,i){if(this._$cssResult$=!0,i!==Ce)throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");this.cssText=e,this.t=s}get styleSheet(){let e=this.o;const s=this.t;if(Te&&e===void 0){const i=s!==void 0&&s.length===1;i&&(e=ze.get(s)),e===void 0&&((this.o=e=new CSSStyleSheet).replaceSync(this.cssText),i&&ze.set(s,e))}return e}toString(){return this.cssText}};const wt=t=>new dt(typeof t=="string"?t:t+"",void 0,Ce),V=(t,...e)=>{const s=t.length===1?t[0]:e.reduce((i,r,n)=>i+(a=>{if(a._$cssResult$===!0)return a.cssText;if(typeof a=="number")return a;throw Error("Value passed to 'css' function must be a 'css' function result: "+a+". Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.")})(r)+t[n+1],t[0]);return new dt(s,t,Ce)},_t=(t,e)=>{if(Te)t.adoptedStyleSheets=e.map(s=>s instanceof CSSStyleSheet?s:s.styleSheet);else for(const s of e){const i=document.createElement("style"),r=de.litNonce;r!==void 0&&i.setAttribute("nonce",r),i.textContent=s.cssText,t.appendChild(i)}},Ne=Te?t=>t:t=>t instanceof CSSStyleSheet?(e=>{let s="";for(const i of e.cssRules)s+=i.cssText;return wt(s)})(t):t;/**
+ */const ce=globalThis,Te=ce.ShadowRoot&&(ce.ShadyCSS===void 0||ce.ShadyCSS.nativeShadow)&&"adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prototype,Ce=Symbol(),ze=new WeakMap;let ct=class{constructor(e,i,s){if(this._$cssResult$=!0,s!==Ce)throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");this.cssText=e,this.t=i}get styleSheet(){let e=this.o;const i=this.t;if(Te&&e===void 0){const s=i!==void 0&&i.length===1;s&&(e=ze.get(i)),e===void 0&&((this.o=e=new CSSStyleSheet).replaceSync(this.cssText),s&&ze.set(i,e))}return e}toString(){return this.cssText}};const $t=t=>new ct(typeof t=="string"?t:t+"",void 0,Ce),q=(t,...e)=>{const i=t.length===1?t[0]:e.reduce((s,n,r)=>s+(a=>{if(a._$cssResult$===!0)return a.cssText;if(typeof a=="number")return a;throw Error("Value passed to 'css' function must be a 'css' function result: "+a+". Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.")})(n)+t[r+1],t[0]);return new ct(i,t,Ce)},_t=(t,e)=>{if(Te)t.adoptedStyleSheets=e.map(i=>i instanceof CSSStyleSheet?i:i.styleSheet);else for(const i of e){const s=document.createElement("style"),n=ce.litNonce;n!==void 0&&s.setAttribute("nonce",n),s.textContent=i.cssText,t.appendChild(s)}},Ne=Te?t=>t:t=>t instanceof CSSStyleSheet?(e=>{let i="";for(const s of e.cssRules)i+=s.cssText;return $t(i)})(t):t;/**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */const{is:Et,defineProperty:kt,getOwnPropertyDescriptor:At,getOwnPropertyNames:St,getOwnPropertySymbols:Mt,getPrototypeOf:Tt}=Object,C=globalThis,He=C.trustedTypes,Ct=He?He.emptyScript:"",ve=C.reactiveElementPolyfillSupport,Z=(t,e)=>t,pe={toAttribute(t,e){switch(e){case Boolean:t=t?Ct:null;break;case Object:case Array:t=t==null?t:JSON.stringify(t)}return t},fromAttribute(t,e){let s=t;switch(e){case Boolean:s=t!==null;break;case Number:s=t===null?null:Number(t);break;case Object:case Array:try{s=JSON.parse(t)}catch{s=null}}return s}},Pe=(t,e)=>!Et(t,e),Ie={attribute:!0,type:String,converter:pe,reflect:!1,useDefault:!1,hasChanged:Pe};Symbol.metadata??(Symbol.metadata=Symbol("metadata")),C.litPropertyMetadata??(C.litPropertyMetadata=new WeakMap);let I=class extends HTMLElement{static addInitializer(e){this._$Ei(),(this.l??(this.l=[])).push(e)}static get observedAttributes(){return this.finalize(),this._$Eh&&[...this._$Eh.keys()]}static createProperty(e,s=Ie){if(s.state&&(s.attribute=!1),this._$Ei(),this.prototype.hasOwnProperty(e)&&((s=Object.create(s)).wrapped=!0),this.elementProperties.set(e,s),!s.noAccessor){const i=Symbol(),r=this.getPropertyDescriptor(e,i,s);r!==void 0&&kt(this.prototype,e,r)}}static getPropertyDescriptor(e,s,i){const{get:r,set:n}=At(this.prototype,e)??{get(){return this[s]},set(a){this[s]=a}};return{get:r,set(a){const l=r==null?void 0:r.call(this);n==null||n.call(this,a),this.requestUpdate(e,l,i)},configurable:!0,enumerable:!0}}static getPropertyOptions(e){return this.elementProperties.get(e)??Ie}static _$Ei(){if(this.hasOwnProperty(Z("elementProperties")))return;const e=Tt(this);e.finalize(),e.l!==void 0&&(this.l=[...e.l]),this.elementProperties=new Map(e.elementProperties)}static finalize(){if(this.hasOwnProperty(Z("finalized")))return;if(this.finalized=!0,this._$Ei(),this.hasOwnProperty(Z("properties"))){const s=this.properties,i=[...St(s),...Mt(s)];for(const r of i)this.createProperty(r,s[r])}const e=this[Symbol.metadata];if(e!==null){const s=litPropertyMetadata.get(e);if(s!==void 0)for(const[i,r]of s)this.elementProperties.set(i,r)}this._$Eh=new Map;for(const[s,i]of this.elementProperties){const r=this._$Eu(s,i);r!==void 0&&this._$Eh.set(r,s)}this.elementStyles=this.finalizeStyles(this.styles)}static finalizeStyles(e){const s=[];if(Array.isArray(e)){const i=new Set(e.flat(1/0).reverse());for(const r of i)s.unshift(Ne(r))}else e!==void 0&&s.push(Ne(e));return s}static _$Eu(e,s){const i=s.attribute;return i===!1?void 0:typeof i=="string"?i:typeof e=="string"?e.toLowerCase():void 0}constructor(){super(),this._$Ep=void 0,this.isUpdatePending=!1,this.hasUpdated=!1,this._$Em=null,this._$Ev()}_$Ev(){var e;this._$ES=new Promise(s=>this.enableUpdating=s),this._$AL=new Map,this._$E_(),this.requestUpdate(),(e=this.constructor.l)==null||e.forEach(s=>s(this))}addController(e){var s;(this._$EO??(this._$EO=new Set)).add(e),this.renderRoot!==void 0&&this.isConnected&&((s=e.hostConnected)==null||s.call(e))}removeController(e){var s;(s=this._$EO)==null||s.delete(e)}_$E_(){const e=new Map,s=this.constructor.elementProperties;for(const i of s.keys())this.hasOwnProperty(i)&&(e.set(i,this[i]),delete this[i]);e.size>0&&(this._$Ep=e)}createRenderRoot(){const e=this.shadowRoot??this.attachShadow(this.constructor.shadowRootOptions);return _t(e,this.constructor.elementStyles),e}connectedCallback(){var e;this.renderRoot??(this.renderRoot=this.createRenderRoot()),this.enableUpdating(!0),(e=this._$EO)==null||e.forEach(s=>{var i;return(i=s.hostConnected)==null?void 0:i.call(s)})}enableUpdating(e){}disconnectedCallback(){var e;(e=this._$EO)==null||e.forEach(s=>{var i;return(i=s.hostDisconnected)==null?void 0:i.call(s)})}attributeChangedCallback(e,s,i){this._$AK(e,i)}_$ET(e,s){var n;const i=this.constructor.elementProperties.get(e),r=this.constructor._$Eu(e,i);if(r!==void 0&&i.reflect===!0){const a=(((n=i.converter)==null?void 0:n.toAttribute)!==void 0?i.converter:pe).toAttribute(s,i.type);this._$Em=e,a==null?this.removeAttribute(r):this.setAttribute(r,a),this._$Em=null}}_$AK(e,s){var n,a;const i=this.constructor,r=i._$Eh.get(e);if(r!==void 0&&this._$Em!==r){const l=i.getPropertyOptions(r),o=typeof l.converter=="function"?{fromAttribute:l.converter}:((n=l.converter)==null?void 0:n.fromAttribute)!==void 0?l.converter:pe;this._$Em=r;const c=o.fromAttribute(s,l.type);this[r]=c??((a=this._$Ej)==null?void 0:a.get(r))??c,this._$Em=null}}requestUpdate(e,s,i,r=!1,n){var a;if(e!==void 0){const l=this.constructor;if(r===!1&&(n=this[e]),i??(i=l.getPropertyOptions(e)),!((i.hasChanged??Pe)(n,s)||i.useDefault&&i.reflect&&n===((a=this._$Ej)==null?void 0:a.get(e))&&!this.hasAttribute(l._$Eu(e,i))))return;this.C(e,s,i)}this.isUpdatePending===!1&&(this._$ES=this._$EP())}C(e,s,{useDefault:i,reflect:r,wrapped:n},a){i&&!(this._$Ej??(this._$Ej=new Map)).has(e)&&(this._$Ej.set(e,a??s??this[e]),n!==!0||a!==void 0)||(this._$AL.has(e)||(this.hasUpdated||i||(s=void 0),this._$AL.set(e,s)),r===!0&&this._$Em!==e&&(this._$Eq??(this._$Eq=new Set)).add(e))}async _$EP(){this.isUpdatePending=!0;try{await this._$ES}catch(s){Promise.reject(s)}const e=this.scheduleUpdate();return e!=null&&await e,!this.isUpdatePending}scheduleUpdate(){return this.performUpdate()}performUpdate(){var i;if(!this.isUpdatePending)return;if(!this.hasUpdated){if(this.renderRoot??(this.renderRoot=this.createRenderRoot()),this._$Ep){for(const[n,a]of this._$Ep)this[n]=a;this._$Ep=void 0}const r=this.constructor.elementProperties;if(r.size>0)for(const[n,a]of r){const{wrapped:l}=a,o=this[n];l!==!0||this._$AL.has(n)||o===void 0||this.C(n,void 0,a,o)}}let e=!1;const s=this._$AL;try{e=this.shouldUpdate(s),e?(this.willUpdate(s),(i=this._$EO)==null||i.forEach(r=>{var n;return(n=r.hostUpdate)==null?void 0:n.call(r)}),this.update(s)):this._$EM()}catch(r){throw e=!1,this._$EM(),r}e&&this._$AE(s)}willUpdate(e){}_$AE(e){var s;(s=this._$EO)==null||s.forEach(i=>{var r;return(r=i.hostUpdated)==null?void 0:r.call(i)}),this.hasUpdated||(this.hasUpdated=!0,this.firstUpdated(e)),this.updated(e)}_$EM(){this._$AL=new Map,this.isUpdatePending=!1}get updateComplete(){return this.getUpdateComplete()}getUpdateComplete(){return this._$ES}shouldUpdate(e){return!0}update(e){this._$Eq&&(this._$Eq=this._$Eq.forEach(s=>this._$ET(s,this[s]))),this._$EM()}updated(e){}firstUpdated(e){}};I.elementStyles=[],I.shadowRootOptions={mode:"open"},I[Z("elementProperties")]=new Map,I[Z("finalized")]=new Map,ve==null||ve({ReactiveElement:I}),(C.reactiveElementVersions??(C.reactiveElementVersions=[])).push("2.1.2");/**
+ */const{is:kt,defineProperty:Et,getOwnPropertyDescriptor:At,getOwnPropertyNames:St,getOwnPropertySymbols:Mt,getPrototypeOf:Tt}=Object,C=globalThis,He=C.trustedTypes,Ct=He?He.emptyScript:"",xe=C.reactiveElementPolyfillSupport,Z=(t,e)=>t,pe={toAttribute(t,e){switch(e){case Boolean:t=t?Ct:null;break;case Object:case Array:t=t==null?t:JSON.stringify(t)}return t},fromAttribute(t,e){let i=t;switch(e){case Boolean:i=t!==null;break;case Number:i=t===null?null:Number(t);break;case Object:case Array:try{i=JSON.parse(t)}catch{i=null}}return i}},De=(t,e)=>!kt(t,e),Re={attribute:!0,type:String,converter:pe,reflect:!1,useDefault:!1,hasChanged:De};Symbol.metadata??(Symbol.metadata=Symbol("metadata")),C.litPropertyMetadata??(C.litPropertyMetadata=new WeakMap);let R=class extends HTMLElement{static addInitializer(e){this._$Ei(),(this.l??(this.l=[])).push(e)}static get observedAttributes(){return this.finalize(),this._$Eh&&[...this._$Eh.keys()]}static createProperty(e,i=Re){if(i.state&&(i.attribute=!1),this._$Ei(),this.prototype.hasOwnProperty(e)&&((i=Object.create(i)).wrapped=!0),this.elementProperties.set(e,i),!i.noAccessor){const s=Symbol(),n=this.getPropertyDescriptor(e,s,i);n!==void 0&&Et(this.prototype,e,n)}}static getPropertyDescriptor(e,i,s){const{get:n,set:r}=At(this.prototype,e)??{get(){return this[i]},set(a){this[i]=a}};return{get:n,set(a){const l=n==null?void 0:n.call(this);r==null||r.call(this,a),this.requestUpdate(e,l,s)},configurable:!0,enumerable:!0}}static getPropertyOptions(e){return this.elementProperties.get(e)??Re}static _$Ei(){if(this.hasOwnProperty(Z("elementProperties")))return;const e=Tt(this);e.finalize(),e.l!==void 0&&(this.l=[...e.l]),this.elementProperties=new Map(e.elementProperties)}static finalize(){if(this.hasOwnProperty(Z("finalized")))return;if(this.finalized=!0,this._$Ei(),this.hasOwnProperty(Z("properties"))){const i=this.properties,s=[...St(i),...Mt(i)];for(const n of s)this.createProperty(n,i[n])}const e=this[Symbol.metadata];if(e!==null){const i=litPropertyMetadata.get(e);if(i!==void 0)for(const[s,n]of i)this.elementProperties.set(s,n)}this._$Eh=new Map;for(const[i,s]of this.elementProperties){const n=this._$Eu(i,s);n!==void 0&&this._$Eh.set(n,i)}this.elementStyles=this.finalizeStyles(this.styles)}static finalizeStyles(e){const i=[];if(Array.isArray(e)){const s=new Set(e.flat(1/0).reverse());for(const n of s)i.unshift(Ne(n))}else e!==void 0&&i.push(Ne(e));return i}static _$Eu(e,i){const s=i.attribute;return s===!1?void 0:typeof s=="string"?s:typeof e=="string"?e.toLowerCase():void 0}constructor(){super(),this._$Ep=void 0,this.isUpdatePending=!1,this.hasUpdated=!1,this._$Em=null,this._$Ev()}_$Ev(){var e;this._$ES=new Promise(i=>this.enableUpdating=i),this._$AL=new Map,this._$E_(),this.requestUpdate(),(e=this.constructor.l)==null||e.forEach(i=>i(this))}addController(e){var i;(this._$EO??(this._$EO=new Set)).add(e),this.renderRoot!==void 0&&this.isConnected&&((i=e.hostConnected)==null||i.call(e))}removeController(e){var i;(i=this._$EO)==null||i.delete(e)}_$E_(){const e=new Map,i=this.constructor.elementProperties;for(const s of i.keys())this.hasOwnProperty(s)&&(e.set(s,this[s]),delete this[s]);e.size>0&&(this._$Ep=e)}createRenderRoot(){const e=this.shadowRoot??this.attachShadow(this.constructor.shadowRootOptions);return _t(e,this.constructor.elementStyles),e}connectedCallback(){var e;this.renderRoot??(this.renderRoot=this.createRenderRoot()),this.enableUpdating(!0),(e=this._$EO)==null||e.forEach(i=>{var s;return(s=i.hostConnected)==null?void 0:s.call(i)})}enableUpdating(e){}disconnectedCallback(){var e;(e=this._$EO)==null||e.forEach(i=>{var s;return(s=i.hostDisconnected)==null?void 0:s.call(i)})}attributeChangedCallback(e,i,s){this._$AK(e,s)}_$ET(e,i){var r;const s=this.constructor.elementProperties.get(e),n=this.constructor._$Eu(e,s);if(n!==void 0&&s.reflect===!0){const a=(((r=s.converter)==null?void 0:r.toAttribute)!==void 0?s.converter:pe).toAttribute(i,s.type);this._$Em=e,a==null?this.removeAttribute(n):this.setAttribute(n,a),this._$Em=null}}_$AK(e,i){var r,a;const s=this.constructor,n=s._$Eh.get(e);if(n!==void 0&&this._$Em!==n){const l=s.getPropertyOptions(n),o=typeof l.converter=="function"?{fromAttribute:l.converter}:((r=l.converter)==null?void 0:r.fromAttribute)!==void 0?l.converter:pe;this._$Em=n;const d=o.fromAttribute(i,l.type);this[n]=d??((a=this._$Ej)==null?void 0:a.get(n))??d,this._$Em=null}}requestUpdate(e,i,s,n=!1,r){var a;if(e!==void 0){const l=this.constructor;if(n===!1&&(r=this[e]),s??(s=l.getPropertyOptions(e)),!((s.hasChanged??De)(r,i)||s.useDefault&&s.reflect&&r===((a=this._$Ej)==null?void 0:a.get(e))&&!this.hasAttribute(l._$Eu(e,s))))return;this.C(e,i,s)}this.isUpdatePending===!1&&(this._$ES=this._$EP())}C(e,i,{useDefault:s,reflect:n,wrapped:r},a){s&&!(this._$Ej??(this._$Ej=new Map)).has(e)&&(this._$Ej.set(e,a??i??this[e]),r!==!0||a!==void 0)||(this._$AL.has(e)||(this.hasUpdated||s||(i=void 0),this._$AL.set(e,i)),n===!0&&this._$Em!==e&&(this._$Eq??(this._$Eq=new Set)).add(e))}async _$EP(){this.isUpdatePending=!0;try{await this._$ES}catch(i){Promise.reject(i)}const e=this.scheduleUpdate();return e!=null&&await e,!this.isUpdatePending}scheduleUpdate(){return this.performUpdate()}performUpdate(){var s;if(!this.isUpdatePending)return;if(!this.hasUpdated){if(this.renderRoot??(this.renderRoot=this.createRenderRoot()),this._$Ep){for(const[r,a]of this._$Ep)this[r]=a;this._$Ep=void 0}const n=this.constructor.elementProperties;if(n.size>0)for(const[r,a]of n){const{wrapped:l}=a,o=this[r];l!==!0||this._$AL.has(r)||o===void 0||this.C(r,void 0,a,o)}}let e=!1;const i=this._$AL;try{e=this.shouldUpdate(i),e?(this.willUpdate(i),(s=this._$EO)==null||s.forEach(n=>{var r;return(r=n.hostUpdate)==null?void 0:r.call(n)}),this.update(i)):this._$EM()}catch(n){throw e=!1,this._$EM(),n}e&&this._$AE(i)}willUpdate(e){}_$AE(e){var i;(i=this._$EO)==null||i.forEach(s=>{var n;return(n=s.hostUpdated)==null?void 0:n.call(s)}),this.hasUpdated||(this.hasUpdated=!0,this.firstUpdated(e)),this.updated(e)}_$EM(){this._$AL=new Map,this.isUpdatePending=!1}get updateComplete(){return this.getUpdateComplete()}getUpdateComplete(){return this._$ES}shouldUpdate(e){return!0}update(e){this._$Eq&&(this._$Eq=this._$Eq.forEach(i=>this._$ET(i,this[i]))),this._$EM()}updated(e){}firstUpdated(e){}};R.elementStyles=[],R.shadowRootOptions={mode:"open"},R[Z("elementProperties")]=new Map,R[Z("finalized")]=new Map,xe==null||xe({ReactiveElement:R}),(C.reactiveElementVersions??(C.reactiveElementVersions=[])).push("2.1.2");/**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */const J=globalThis,Le=t=>t,ge=J.trustedTypes,Re=ge?ge.createPolicy("lit-html",{createHTML:t=>t}):void 0,pt="$lit$",T=`lit$${Math.random().toFixed(9).slice(2)}$`,gt="?"+T,Pt=`<${gt}>`,N=document,ee=()=>N.createComment(""),te=t=>t===null||typeof t!="object"&&typeof t!="function",De=Array.isArray,Dt=t=>De(t)||typeof(t==null?void 0:t[Symbol.iterator])=="function",xe=`[ 	
-\f\r]`,K=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,Ue=/-->/g,je=/>/g,D=RegExp(`>|${xe}(?:([^\\s"'>=/]+)(${xe}*=${xe}*(?:[^ 	
-\f\r"'\`<>=]|("|')|))|$)`,"g"),Ve=/'/g,qe=/"/g,ut=/^(?:script|style|textarea|title)$/i,ft=t=>(e,...s)=>({_$litType$:t,strings:e,values:s}),f=ft(1),$=ft(2),R=Symbol.for("lit-noChange"),u=Symbol.for("lit-nothing"),Be=new WeakMap,O=N.createTreeWalker(N,129);function mt(t,e){if(!De(t)||!t.hasOwnProperty("raw"))throw Error("invalid template strings array");return Re!==void 0?Re.createHTML(e):e}const Ot=(t,e)=>{const s=t.length-1,i=[];let r,n=e===2?"<svg>":e===3?"<math>":"",a=K;for(let l=0;l<s;l++){const o=t[l];let c,h,d=-1,p=0;for(;p<o.length&&(a.lastIndex=p,h=a.exec(o),h!==null);)p=a.lastIndex,a===K?h[1]==="!--"?a=Ue:h[1]!==void 0?a=je:h[2]!==void 0?(ut.test(h[2])&&(r=RegExp("</"+h[2],"g")),a=D):h[3]!==void 0&&(a=D):a===D?h[0]===">"?(a=r??K,d=-1):h[1]===void 0?d=-2:(d=a.lastIndex-h[2].length,c=h[1],a=h[3]===void 0?D:h[3]==='"'?qe:Ve):a===qe||a===Ve?a=D:a===Ue||a===je?a=K:(a=D,r=void 0);const m=a===D&&t[l+1].startsWith("/>")?" ":"";n+=a===K?o+Pt:d>=0?(i.push(c),o.slice(0,d)+pt+o.slice(d)+T+m):o+T+(d===-2?l:m)}return[mt(t,n+(t[s]||"<?>")+(e===2?"</svg>":e===3?"</math>":"")),i]};class se{constructor({strings:e,_$litType$:s},i){let r;this.parts=[];let n=0,a=0;const l=e.length-1,o=this.parts,[c,h]=Ot(e,s);if(this.el=se.createElement(c,i),O.currentNode=this.el.content,s===2||s===3){const d=this.el.content.firstChild;d.replaceWith(...d.childNodes)}for(;(r=O.nextNode())!==null&&o.length<l;){if(r.nodeType===1){if(r.hasAttributes())for(const d of r.getAttributeNames())if(d.endsWith(pt)){const p=h[a++],m=r.getAttribute(d).split(T),x=/([.?@])?(.*)/.exec(p);o.push({type:1,index:n,name:x[2],strings:m,ctor:x[1]==="."?Nt:x[1]==="?"?Ht:x[1]==="@"?It:be}),r.removeAttribute(d)}else d.startsWith(T)&&(o.push({type:6,index:n}),r.removeAttribute(d));if(ut.test(r.tagName)){const d=r.textContent.split(T),p=d.length-1;if(p>0){r.textContent=ge?ge.emptyScript:"";for(let m=0;m<p;m++)r.append(d[m],ee()),O.nextNode(),o.push({type:2,index:++n});r.append(d[p],ee())}}}else if(r.nodeType===8)if(r.data===gt)o.push({type:2,index:n});else{let d=-1;for(;(d=r.data.indexOf(T,d+1))!==-1;)o.push({type:7,index:n}),d+=T.length-1}n++}}static createElement(e,s){const i=N.createElement("template");return i.innerHTML=e,i}}function U(t,e,s=t,i){var a,l;if(e===R)return e;let r=i!==void 0?(a=s._$Co)==null?void 0:a[i]:s._$Cl;const n=te(e)?void 0:e._$litDirective$;return(r==null?void 0:r.constructor)!==n&&((l=r==null?void 0:r._$AO)==null||l.call(r,!1),n===void 0?r=void 0:(r=new n(t),r._$AT(t,s,i)),i!==void 0?(s._$Co??(s._$Co=[]))[i]=r:s._$Cl=r),r!==void 0&&(e=U(t,r._$AS(t,e.values),r,i)),e}let zt=class{constructor(e,s){this._$AV=[],this._$AN=void 0,this._$AD=e,this._$AM=s}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(e){const{el:{content:s},parts:i}=this._$AD,r=((e==null?void 0:e.creationScope)??N).importNode(s,!0);O.currentNode=r;let n=O.nextNode(),a=0,l=0,o=i[0];for(;o!==void 0;){if(a===o.index){let c;o.type===2?c=new ne(n,n.nextSibling,this,e):o.type===1?c=new o.ctor(n,o.name,o.strings,this,e):o.type===6&&(c=new Lt(n,this,e)),this._$AV.push(c),o=i[++l]}a!==(o==null?void 0:o.index)&&(n=O.nextNode(),a++)}return O.currentNode=N,r}p(e){let s=0;for(const i of this._$AV)i!==void 0&&(i.strings!==void 0?(i._$AI(e,i,s),s+=i.strings.length-2):i._$AI(e[s])),s++}};class ne{get _$AU(){var e;return((e=this._$AM)==null?void 0:e._$AU)??this._$Cv}constructor(e,s,i,r){this.type=2,this._$AH=u,this._$AN=void 0,this._$AA=e,this._$AB=s,this._$AM=i,this.options=r,this._$Cv=(r==null?void 0:r.isConnected)??!0}get parentNode(){let e=this._$AA.parentNode;const s=this._$AM;return s!==void 0&&(e==null?void 0:e.nodeType)===11&&(e=s.parentNode),e}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(e,s=this){e=U(this,e,s),te(e)?e===u||e==null||e===""?(this._$AH!==u&&this._$AR(),this._$AH=u):e!==this._$AH&&e!==R&&this._(e):e._$litType$!==void 0?this.$(e):e.nodeType!==void 0?this.T(e):Dt(e)?this.k(e):this._(e)}O(e){return this._$AA.parentNode.insertBefore(e,this._$AB)}T(e){this._$AH!==e&&(this._$AR(),this._$AH=this.O(e))}_(e){this._$AH!==u&&te(this._$AH)?this._$AA.nextSibling.data=e:this.T(N.createTextNode(e)),this._$AH=e}$(e){var n;const{values:s,_$litType$:i}=e,r=typeof i=="number"?this._$AC(e):(i.el===void 0&&(i.el=se.createElement(mt(i.h,i.h[0]),this.options)),i);if(((n=this._$AH)==null?void 0:n._$AD)===r)this._$AH.p(s);else{const a=new zt(r,this),l=a.u(this.options);a.p(s),this.T(l),this._$AH=a}}_$AC(e){let s=Be.get(e.strings);return s===void 0&&Be.set(e.strings,s=new se(e)),s}k(e){De(this._$AH)||(this._$AH=[],this._$AR());const s=this._$AH;let i,r=0;for(const n of e)r===s.length?s.push(i=new ne(this.O(ee()),this.O(ee()),this,this.options)):i=s[r],i._$AI(n),r++;r<s.length&&(this._$AR(i&&i._$AB.nextSibling,r),s.length=r)}_$AR(e=this._$AA.nextSibling,s){var i;for((i=this._$AP)==null?void 0:i.call(this,!1,!0,s);e!==this._$AB;){const r=Le(e).nextSibling;Le(e).remove(),e=r}}setConnected(e){var s;this._$AM===void 0&&(this._$Cv=e,(s=this._$AP)==null||s.call(this,e))}}let be=class{get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}constructor(e,s,i,r,n){this.type=1,this._$AH=u,this._$AN=void 0,this.element=e,this.name=s,this._$AM=r,this.options=n,i.length>2||i[0]!==""||i[1]!==""?(this._$AH=Array(i.length-1).fill(new String),this.strings=i):this._$AH=u}_$AI(e,s=this,i,r){const n=this.strings;let a=!1;if(n===void 0)e=U(this,e,s,0),a=!te(e)||e!==this._$AH&&e!==R,a&&(this._$AH=e);else{const l=e;let o,c;for(e=n[0],o=0;o<n.length-1;o++)c=U(this,l[i+o],s,o),c===R&&(c=this._$AH[o]),a||(a=!te(c)||c!==this._$AH[o]),c===u?e=u:e!==u&&(e+=(c??"")+n[o+1]),this._$AH[o]=c}a&&!r&&this.j(e)}j(e){e===u?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,e??"")}};class Nt extends be{constructor(){super(...arguments),this.type=3}j(e){this.element[this.name]=e===u?void 0:e}}let Ht=class extends be{constructor(){super(...arguments),this.type=4}j(e){this.element.toggleAttribute(this.name,!!e&&e!==u)}};class It extends be{constructor(e,s,i,r,n){super(e,s,i,r,n),this.type=5}_$AI(e,s=this){if((e=U(this,e,s,0)??u)===R)return;const i=this._$AH,r=e===u&&i!==u||e.capture!==i.capture||e.once!==i.once||e.passive!==i.passive,n=e!==u&&(i===u||r);r&&this.element.removeEventListener(this.name,this,i),n&&this.element.addEventListener(this.name,this,e),this._$AH=e}handleEvent(e){var s;typeof this._$AH=="function"?this._$AH.call(((s=this.options)==null?void 0:s.host)??this.element,e):this._$AH.handleEvent(e)}}class Lt{constructor(e,s,i){this.element=e,this.type=6,this._$AN=void 0,this._$AM=s,this.options=i}get _$AU(){return this._$AM._$AU}_$AI(e){U(this,e)}}const ye=J.litHtmlPolyfillSupport;ye==null||ye(se,ne),(J.litHtmlVersions??(J.litHtmlVersions=[])).push("3.3.3");const Rt=(t,e,s)=>{const i=(s==null?void 0:s.renderBefore)??e;let r=i._$litPart$;if(r===void 0){const n=(s==null?void 0:s.renderBefore)??null;i._$litPart$=r=new ne(e.insertBefore(ee(),n),n,void 0,s??{})}return r._$AI(t),r};/**
+ */const J=globalThis,Ie=t=>t,ge=J.trustedTypes,Le=ge?ge.createPolicy("lit-html",{createHTML:t=>t}):void 0,pt="$lit$",T=`lit$${Math.random().toFixed(9).slice(2)}$`,gt="?"+T,Dt=`<${gt}>`,N=document,ee=()=>N.createComment(""),te=t=>t===null||typeof t!="object"&&typeof t!="function",Pe=Array.isArray,Pt=t=>Pe(t)||typeof(t==null?void 0:t[Symbol.iterator])=="function",ve=`[ 	
+\f\r]`,K=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,Ue=/-->/g,je=/>/g,P=RegExp(`>|${ve}(?:([^\\s"'>=/]+)(${ve}*=${ve}*(?:[^ 	
+\f\r"'\`<>=]|("|')|))|$)`,"g"),qe=/'/g,Ve=/"/g,ut=/^(?:script|style|textarea|title)$/i,ft=t=>(e,...i)=>({_$litType$:t,strings:e,values:i}),f=ft(1),w=ft(2),L=Symbol.for("lit-noChange"),u=Symbol.for("lit-nothing"),Be=new WeakMap,O=N.createTreeWalker(N,129);function mt(t,e){if(!Pe(t)||!t.hasOwnProperty("raw"))throw Error("invalid template strings array");return Le!==void 0?Le.createHTML(e):e}const Ot=(t,e)=>{const i=t.length-1,s=[];let n,r=e===2?"<svg>":e===3?"<math>":"",a=K;for(let l=0;l<i;l++){const o=t[l];let d,h,c=-1,p=0;for(;p<o.length&&(a.lastIndex=p,h=a.exec(o),h!==null);)p=a.lastIndex,a===K?h[1]==="!--"?a=Ue:h[1]!==void 0?a=je:h[2]!==void 0?(ut.test(h[2])&&(n=RegExp("</"+h[2],"g")),a=P):h[3]!==void 0&&(a=P):a===P?h[0]===">"?(a=n??K,c=-1):h[1]===void 0?c=-2:(c=a.lastIndex-h[2].length,d=h[1],a=h[3]===void 0?P:h[3]==='"'?Ve:qe):a===Ve||a===qe?a=P:a===Ue||a===je?a=K:(a=P,n=void 0);const m=a===P&&t[l+1].startsWith("/>")?" ":"";r+=a===K?o+Dt:c>=0?(s.push(d),o.slice(0,c)+pt+o.slice(c)+T+m):o+T+(c===-2?l:m)}return[mt(t,r+(t[i]||"<?>")+(e===2?"</svg>":e===3?"</math>":"")),s]};class ie{constructor({strings:e,_$litType$:i},s){let n;this.parts=[];let r=0,a=0;const l=e.length-1,o=this.parts,[d,h]=Ot(e,i);if(this.el=ie.createElement(d,s),O.currentNode=this.el.content,i===2||i===3){const c=this.el.content.firstChild;c.replaceWith(...c.childNodes)}for(;(n=O.nextNode())!==null&&o.length<l;){if(n.nodeType===1){if(n.hasAttributes())for(const c of n.getAttributeNames())if(c.endsWith(pt)){const p=h[a++],m=n.getAttribute(c).split(T),v=/([.?@])?(.*)/.exec(p);o.push({type:1,index:r,name:v[2],strings:m,ctor:v[1]==="."?Nt:v[1]==="?"?Ht:v[1]==="@"?Rt:be}),n.removeAttribute(c)}else c.startsWith(T)&&(o.push({type:6,index:r}),n.removeAttribute(c));if(ut.test(n.tagName)){const c=n.textContent.split(T),p=c.length-1;if(p>0){n.textContent=ge?ge.emptyScript:"";for(let m=0;m<p;m++)n.append(c[m],ee()),O.nextNode(),o.push({type:2,index:++r});n.append(c[p],ee())}}}else if(n.nodeType===8)if(n.data===gt)o.push({type:2,index:r});else{let c=-1;for(;(c=n.data.indexOf(T,c+1))!==-1;)o.push({type:7,index:r}),c+=T.length-1}r++}}static createElement(e,i){const s=N.createElement("template");return s.innerHTML=e,s}}function U(t,e,i=t,s){var a,l;if(e===L)return e;let n=s!==void 0?(a=i._$Co)==null?void 0:a[s]:i._$Cl;const r=te(e)?void 0:e._$litDirective$;return(n==null?void 0:n.constructor)!==r&&((l=n==null?void 0:n._$AO)==null||l.call(n,!1),r===void 0?n=void 0:(n=new r(t),n._$AT(t,i,s)),s!==void 0?(i._$Co??(i._$Co=[]))[s]=n:i._$Cl=n),n!==void 0&&(e=U(t,n._$AS(t,e.values),n,s)),e}let zt=class{constructor(e,i){this._$AV=[],this._$AN=void 0,this._$AD=e,this._$AM=i}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(e){const{el:{content:i},parts:s}=this._$AD,n=((e==null?void 0:e.creationScope)??N).importNode(i,!0);O.currentNode=n;let r=O.nextNode(),a=0,l=0,o=s[0];for(;o!==void 0;){if(a===o.index){let d;o.type===2?d=new re(r,r.nextSibling,this,e):o.type===1?d=new o.ctor(r,o.name,o.strings,this,e):o.type===6&&(d=new It(r,this,e)),this._$AV.push(d),o=s[++l]}a!==(o==null?void 0:o.index)&&(r=O.nextNode(),a++)}return O.currentNode=N,n}p(e){let i=0;for(const s of this._$AV)s!==void 0&&(s.strings!==void 0?(s._$AI(e,s,i),i+=s.strings.length-2):s._$AI(e[i])),i++}};class re{get _$AU(){var e;return((e=this._$AM)==null?void 0:e._$AU)??this._$Cv}constructor(e,i,s,n){this.type=2,this._$AH=u,this._$AN=void 0,this._$AA=e,this._$AB=i,this._$AM=s,this.options=n,this._$Cv=(n==null?void 0:n.isConnected)??!0}get parentNode(){let e=this._$AA.parentNode;const i=this._$AM;return i!==void 0&&(e==null?void 0:e.nodeType)===11&&(e=i.parentNode),e}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(e,i=this){e=U(this,e,i),te(e)?e===u||e==null||e===""?(this._$AH!==u&&this._$AR(),this._$AH=u):e!==this._$AH&&e!==L&&this._(e):e._$litType$!==void 0?this.$(e):e.nodeType!==void 0?this.T(e):Pt(e)?this.k(e):this._(e)}O(e){return this._$AA.parentNode.insertBefore(e,this._$AB)}T(e){this._$AH!==e&&(this._$AR(),this._$AH=this.O(e))}_(e){this._$AH!==u&&te(this._$AH)?this._$AA.nextSibling.data=e:this.T(N.createTextNode(e)),this._$AH=e}$(e){var r;const{values:i,_$litType$:s}=e,n=typeof s=="number"?this._$AC(e):(s.el===void 0&&(s.el=ie.createElement(mt(s.h,s.h[0]),this.options)),s);if(((r=this._$AH)==null?void 0:r._$AD)===n)this._$AH.p(i);else{const a=new zt(n,this),l=a.u(this.options);a.p(i),this.T(l),this._$AH=a}}_$AC(e){let i=Be.get(e.strings);return i===void 0&&Be.set(e.strings,i=new ie(e)),i}k(e){Pe(this._$AH)||(this._$AH=[],this._$AR());const i=this._$AH;let s,n=0;for(const r of e)n===i.length?i.push(s=new re(this.O(ee()),this.O(ee()),this,this.options)):s=i[n],s._$AI(r),n++;n<i.length&&(this._$AR(s&&s._$AB.nextSibling,n),i.length=n)}_$AR(e=this._$AA.nextSibling,i){var s;for((s=this._$AP)==null?void 0:s.call(this,!1,!0,i);e!==this._$AB;){const n=Ie(e).nextSibling;Ie(e).remove(),e=n}}setConnected(e){var i;this._$AM===void 0&&(this._$Cv=e,(i=this._$AP)==null||i.call(this,e))}}let be=class{get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}constructor(e,i,s,n,r){this.type=1,this._$AH=u,this._$AN=void 0,this.element=e,this.name=i,this._$AM=n,this.options=r,s.length>2||s[0]!==""||s[1]!==""?(this._$AH=Array(s.length-1).fill(new String),this.strings=s):this._$AH=u}_$AI(e,i=this,s,n){const r=this.strings;let a=!1;if(r===void 0)e=U(this,e,i,0),a=!te(e)||e!==this._$AH&&e!==L,a&&(this._$AH=e);else{const l=e;let o,d;for(e=r[0],o=0;o<r.length-1;o++)d=U(this,l[s+o],i,o),d===L&&(d=this._$AH[o]),a||(a=!te(d)||d!==this._$AH[o]),d===u?e=u:e!==u&&(e+=(d??"")+r[o+1]),this._$AH[o]=d}a&&!n&&this.j(e)}j(e){e===u?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,e??"")}};class Nt extends be{constructor(){super(...arguments),this.type=3}j(e){this.element[this.name]=e===u?void 0:e}}let Ht=class extends be{constructor(){super(...arguments),this.type=4}j(e){this.element.toggleAttribute(this.name,!!e&&e!==u)}};class Rt extends be{constructor(e,i,s,n,r){super(e,i,s,n,r),this.type=5}_$AI(e,i=this){if((e=U(this,e,i,0)??u)===L)return;const s=this._$AH,n=e===u&&s!==u||e.capture!==s.capture||e.once!==s.once||e.passive!==s.passive,r=e!==u&&(s===u||n);n&&this.element.removeEventListener(this.name,this,s),r&&this.element.addEventListener(this.name,this,e),this._$AH=e}handleEvent(e){var i;typeof this._$AH=="function"?this._$AH.call(((i=this.options)==null?void 0:i.host)??this.element,e):this._$AH.handleEvent(e)}}class It{constructor(e,i,s){this.element=e,this.type=6,this._$AN=void 0,this._$AM=i,this.options=s}get _$AU(){return this._$AM._$AU}_$AI(e){U(this,e)}}const ye=J.litHtmlPolyfillSupport;ye==null||ye(ie,re),(J.litHtmlVersions??(J.litHtmlVersions=[])).push("3.3.3");const Lt=(t,e,i)=>{const s=(i==null?void 0:i.renderBefore)??e;let n=s._$litPart$;if(n===void 0){const r=(i==null?void 0:i.renderBefore)??null;s._$litPart$=n=new re(e.insertBefore(ee(),r),r,void 0,i??{})}return n._$AI(t),n};/**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */const z=globalThis;class E extends I{constructor(){super(...arguments),this.renderOptions={host:this},this._$Do=void 0}createRenderRoot(){var s;const e=super.createRenderRoot();return(s=this.renderOptions).renderBefore??(s.renderBefore=e.firstChild),e}update(e){const s=this.render();this.hasUpdated||(this.renderOptions.isConnected=this.isConnected),super.update(e),this._$Do=Rt(s,this.renderRoot,this.renderOptions)}connectedCallback(){var e;super.connectedCallback(),(e=this._$Do)==null||e.setConnected(!0)}disconnectedCallback(){var e;super.disconnectedCallback(),(e=this._$Do)==null||e.setConnected(!1)}render(){return R}}var ct;E._$litElement$=!0,E.finalized=!0,(ct=z.litElementHydrateSupport)==null||ct.call(z,{LitElement:E});const $e=z.litElementPolyfillSupport;$e==null||$e({LitElement:E});(z.litElementVersions??(z.litElementVersions=[])).push("4.2.2");/**
+ */const z=globalThis;class k extends R{constructor(){super(...arguments),this.renderOptions={host:this},this._$Do=void 0}createRenderRoot(){var i;const e=super.createRenderRoot();return(i=this.renderOptions).renderBefore??(i.renderBefore=e.firstChild),e}update(e){const i=this.render();this.hasUpdated||(this.renderOptions.isConnected=this.isConnected),super.update(e),this._$Do=Lt(i,this.renderRoot,this.renderOptions)}connectedCallback(){var e;super.connectedCallback(),(e=this._$Do)==null||e.setConnected(!0)}disconnectedCallback(){var e;super.disconnectedCallback(),(e=this._$Do)==null||e.setConnected(!1)}render(){return L}}var dt;k._$litElement$=!0,k.finalized=!0,(dt=z.litElementHydrateSupport)==null||dt.call(z,{LitElement:k});const we=z.litElementPolyfillSupport;we==null||we({LitElement:k});(z.litElementVersions??(z.litElementVersions=[])).push("4.2.2");/**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */const q=t=>(e,s)=>{s!==void 0?s.addInitializer(()=>{customElements.define(t,e)}):customElements.define(t,e)};/**
+ */const V=t=>(e,i)=>{i!==void 0?i.addInitializer(()=>{customElements.define(t,e)}):customElements.define(t,e)};/**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */const Ut={attribute:!0,type:String,converter:pe,reflect:!1,hasChanged:Pe},jt=(t=Ut,e,s)=>{const{kind:i,metadata:r}=s;let n=globalThis.litPropertyMetadata.get(r);if(n===void 0&&globalThis.litPropertyMetadata.set(r,n=new Map),i==="setter"&&((t=Object.create(t)).wrapped=!0),n.set(s.name,t),i==="accessor"){const{name:a}=s;return{set(l){const o=e.get.call(this);e.set.call(this,l),this.requestUpdate(a,o,t,!0,l)},init(l){return l!==void 0&&this.C(a,void 0,t,l),l}}}if(i==="setter"){const{name:a}=s;return function(l){const o=this[a];e.call(this,l),this.requestUpdate(a,o,t,!0,l)}}throw Error("Unsupported decorator location: "+i)};function g(t){return(e,s)=>typeof s=="object"?jt(t,e,s):((i,r,n)=>{const a=r.hasOwnProperty(n);return r.constructor.createProperty(n,i),a?Object.getOwnPropertyDescriptor(r,n):void 0})(t,e,s)}/**
+ */const Ut={attribute:!0,type:String,converter:pe,reflect:!1,hasChanged:De},jt=(t=Ut,e,i)=>{const{kind:s,metadata:n}=i;let r=globalThis.litPropertyMetadata.get(n);if(r===void 0&&globalThis.litPropertyMetadata.set(n,r=new Map),s==="setter"&&((t=Object.create(t)).wrapped=!0),r.set(i.name,t),s==="accessor"){const{name:a}=i;return{set(l){const o=e.get.call(this);e.set.call(this,l),this.requestUpdate(a,o,t,!0,l)},init(l){return l!==void 0&&this.C(a,void 0,t,l),l}}}if(s==="setter"){const{name:a}=i;return function(l){const o=this[a];e.call(this,l),this.requestUpdate(a,o,t,!0,l)}}throw Error("Unsupported decorator location: "+s)};function g(t){return(e,i)=>typeof i=="object"?jt(t,e,i):((s,n,r)=>{const a=n.hasOwnProperty(r);return n.constructor.createProperty(r,s),a?Object.getOwnPropertyDescriptor(n,r):void 0})(t,e,i)}/**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */function w(t){return g({...t,state:!0,attribute:!1})}/**
+ */function $(t){return g({...t,state:!0,attribute:!1})}/**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */const Ge=(t,e,s)=>(s.configurable=!0,s.enumerable=!0,Reflect.decorate&&typeof e!="object"&&Object.defineProperty(t,e,s),s);/**
+ */const Ge=(t,e,i)=>(i.configurable=!0,i.enumerable=!0,Reflect.decorate&&typeof e!="object"&&Object.defineProperty(t,e,i),i);/**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */function bt(t,e){return(s,i,r)=>{const n=a=>{var l;return((l=a.renderRoot)==null?void 0:l.querySelector(t))??null};if(e){const{get:a,set:l}=typeof i=="object"?s:r??(()=>{const o=Symbol();return{get(){return this[o]},set(c){this[o]=c}}})();return Ge(s,i,{get(){let o=a.call(this);return o===void 0&&(o=n(this),(o!==null||this.hasUpdated)&&l.call(this,o)),o}})}return Ge(s,i,{get(){return n(this)}})}}const Vt=$`
+ */function bt(t,e){return(i,s,n)=>{const r=a=>{var l;return((l=a.renderRoot)==null?void 0:l.querySelector(t))??null};if(e){const{get:a,set:l}=typeof s=="object"?i:n??(()=>{const o=Symbol();return{get(){return this[o]},set(d){this[o]=d}}})();return Ge(i,s,{get(){let o=a.call(this);return o===void 0&&(o=r(this),(o!==null||this.hasUpdated)&&l.call(this,o)),o}})}return Ge(i,s,{get(){return r(this)}})}}const qt=w`
   <path d="M18 5v15a6 6 0 0 0 12 0V5" />
   <path d="M24 26v13" />
   <circle cx="24" cy="41.5" r="2.5" />
-  <path d="M11.5 8c-1.6 2.2-1.6 4.8 0 7M36.5 8c1.6 2.2 1.6 4.8 0 7" />`,qt={guitar:$`
+  <path d="M11.5 8c-1.6 2.2-1.6 4.8 0 7M36.5 8c1.6 2.2 1.6 4.8 0 7" />`,Vt={guitar:w`
     <rect x="21" y="2" width="6" height="8" rx="1.5" />
     <path d="M24 10v11" />
     <path d="M24 21c-6 0-8 4-6 8-5 2.5-5 15 6 15.5 11-.5 11-13 6-15.5 2-4 0-8-6-8z" />
     <circle cx="24" cy="31" r="2.6" />
-    <path d="M20.5 39h7" />`,bass:$`
+    <path d="M20.5 39h7" />`,bass:w`
     <path d="M22 2h4v9h-4z" />
     <circle cx="20" cy="4" r="0.9" /><circle cx="20" cy="8" r="0.9" />
     <path d="M24 11v14" />
     <path d="M21 25c-6-3-9 2-6 7-4 4-1 13 8 12.5 9 .5 12-7 7-11.5 4-4 2-10-3-7-1-1.5-4-2-6-1z" />
-    <path d="M20 32h8M20.5 37h7" />`,violin:$`
+    <path d="M20 32h8M20.5 37h7" />`,violin:w`
     <circle cx="24" cy="4" r="2.4" />
     <path d="M24 6.5v11" />
     <path d="M24 17.5c-6 0-8 3.5-6 7.5-2 1-2 3 0 4-4.5 2-4 14.5 6 14.5s10.5-12.5 6-14.5c2-1 2-3 0-4 2-4 0-7.5-6-7.5z" />
     <path d="M20.5 30.5c1.2 1.5-.8 3.5.3 5M27.5 30.5c-1.2 1.5.8 3.5-.3 5" />
-    <path d="M22.5 40.5h3" />`,chromatic:$`
+    <path d="M22.5 40.5h3" />`,chromatic:w`
     <rect x="5" y="13" width="38" height="23" rx="1.5" />
     <path d="M11.3 13v23M17.7 13v23M24 13v23M30.3 13v23M36.7 13v23" />
     <rect x="9.3" y="13" width="4" height="13" class="fill" />
     <rect x="15.7" y="13" width="4" height="13" class="fill" />
     <rect x="28.3" y="13" width="4" height="13" class="fill" />
-    <rect x="34.7" y="13" width="4" height="13" class="fill" />`},Bt=.5,ae=.02,Gt=.03;class Ft{constructor(){this.frequencyValue=440,this.volumeValue=.5}get playing(){return this.osc!==void 0}get frequency(){return this.frequencyValue}set frequency(e){this.frequencyValue=e,this.osc&&this.osc.frequency.setTargetAtTime(e,this.ctx.currentTime,Gt)}get volume(){return this.volumeValue}set volume(e){this.volumeValue=e,this.gain&&this.gain.gain.setTargetAtTime(this.level(),this.ctx.currentTime,ae)}start(){if(this.playing)return;this.ctx??(this.ctx=new AudioContext),this.ctx.resume();const e=this.ctx.currentTime;this.osc=this.ctx.createOscillator(),this.osc.type="sine",this.osc.frequency.value=this.frequencyValue,this.gain=this.ctx.createGain(),this.gain.gain.setValueAtTime(0,e),this.gain.gain.setTargetAtTime(this.level(),e,ae),this.osc.connect(this.gain).connect(this.ctx.destination),this.osc.start(e)}stop(){if(!this.osc)return;const e=this.ctx.currentTime;this.gain.gain.setTargetAtTime(0,e,ae),this.osc.stop(e+ae*8),this.osc=void 0,this.gain=void 0}level(){return Bt*this.volumeValue**2}}const Kt=.15,Wt=.01;function Xt(t,e,s,i){let r=0;for(let p=0;p<t.length;p++)r+=t[p]*t[p];if(Math.sqrt(r/t.length)<Wt)return null;const n=Math.min(Math.floor(e/s),Math.floor(t.length/2)),a=Math.max(2,Math.floor(e/i)),l=t.length-n,o=new Float32Array(n+1);o[0]=1;let c=0;for(let p=1;p<=n;p++){let m=0;for(let x=0;x<l;x++){const F=t[x]-t[x+p];m+=F*F}c+=m,o[p]=c?m*p/c:1}let h=a;for(;h<=n&&o[h]>=Kt;)h++;if(h>n)return null;for(;h+1<=n&&o[h+1]<o[h];)h++;let d=h;if(h>1&&h<n){const[p,m,x]=[o[h-1],o[h],o[h+1]],F=p-2*m+x;F&&(d=h+(p-x)/(2*F))}return e/d}const Fe=4096,Yt=50,Zt=5,Ke=400,Jt=3,oe=-60;class Qt{constructor(){this.minHz=30,this.maxHz=2e3,this.gainDbValue=0,this.level=oe,this.buffer=new Float32Array(Fe),this.recent=[],this.lastHeard=-1/0}get running(){return this.timerId!==void 0}get gainDb(){return this.gainDbValue}set gainDb(e){this.gainDbValue=e,this.gain&&(this.gain.gain.value=10**(e/20))}async start(){this.running||(this.stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:!1,noiseSuppression:!1,autoGainControl:!1}}),this.ctx=new AudioContext,this.gain=this.ctx.createGain(),this.gainDb=this.gainDbValue,this.analyser=this.ctx.createAnalyser(),this.analyser.fftSize=Fe,this.ctx.createMediaStreamSource(this.stream).connect(this.gain).connect(this.analyser),this.recent=[],this.lastHeard=-1/0,this.level=oe,this.timerId=window.setInterval(()=>this.detect(),Yt))}stop(){var e,s,i;window.clearInterval(this.timerId),this.timerId=void 0,(e=this.stream)==null||e.getTracks().forEach(r=>r.stop()),(s=this.ctx)==null||s.close(),this.stream=void 0,this.ctx=void 0,this.gain=void 0,this.analyser=void 0,(i=this.onLevel)==null||i.call(this,null)}detect(){var i,r;this.analyser.getFloatTimeDomainData(this.buffer),this.meter();const e=Xt(this.buffer,this.ctx.sampleRate,this.minHz,this.maxHz),s=performance.now();if(e){s-this.lastHeard>Ke&&(this.recent=[]),this.lastHeard=s,this.recent=[...this.recent,e].slice(-Zt);const n=[...this.recent].sort((a,l)=>a-l);(i=this.onPitch)==null||i.call(this,n[n.length>>1])}else s-this.lastHeard>Ke&&((r=this.onPitch)==null||r.call(this,null))}meter(){var i;let e=0;for(let r=0;r<this.buffer.length;r++)e=Math.max(e,Math.abs(this.buffer[r]));const s=e>0?20*Math.log10(e):oe;this.level=Math.max(s,this.level-Jt,oe),(i=this.onLevel)==null||i.call(this,this.level)}}const S=[{id:"guitar",label:"Guitar",strings:[40,45,50,55,59,64],minHz:60,maxHz:1e3},{id:"bass",label:"Bass",strings:[28,33,38,43],minHz:30,maxHz:400},{id:"violin",label:"Violin",strings:[55,62,69,76],minHz:150,maxHz:2e3},{id:"chromatic",label:"Chromatic",strings:[],minHz:30,maxHz:2e3}],es=["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];function vt(t){return es[(t%12+12)%12]}function ts(t,e,s){const i=69+12*Math.log2(t/e);let r=Math.round(i),n=-1;s.strings.length&&(n=s.strings.reduce((l,o,c)=>Math.abs(i-o)<Math.abs(i-s.strings[l])?c:l,0),r=s.strings[n]);const a=vt(r);return{letter:a[0],sharp:a.length>1,octave:Math.floor(r/12)-1,cents:(i-r)*100,stringIndex:n}}var ss=Object.defineProperty,is=Object.getOwnPropertyDescriptor,xt=(t,e,s,i)=>{for(var r=i>1?void 0:i?is(e,s):e,n=t.length-1,a;n>=0;n--)(a=t[n])&&(r=(i?a(e,s,r):a(r))||r);return i&&r&&ss(e,s,r),r};const Se=[-48,-42,-36,-30,-24,-18,-12,-8,-4,-1];function rs(t){return t===Se.length-1?"red":t>=Se.length-3?"yellow":"green"}let ue=class extends E{constructor(){super(...arguments),this.level=null}render(){const t=this.level??-1/0;return f`
+    <rect x="34.7" y="13" width="4" height="13" class="fill" />`},Bt=.5,ae=.02,Gt=.03;class Ft{constructor(){this.frequencyValue=440,this.volumeValue=.5}get playing(){return this.osc!==void 0}get frequency(){return this.frequencyValue}set frequency(e){this.frequencyValue=e,this.osc&&this.osc.frequency.setTargetAtTime(e,this.ctx.currentTime,Gt)}get volume(){return this.volumeValue}set volume(e){this.volumeValue=e,this.gain&&this.gain.gain.setTargetAtTime(this.level(),this.ctx.currentTime,ae)}start(){if(this.playing)return;this.ctx??(this.ctx=new AudioContext),this.ctx.resume();const e=this.ctx.currentTime;this.osc=this.ctx.createOscillator(),this.osc.type="sine",this.osc.frequency.value=this.frequencyValue,this.gain=this.ctx.createGain(),this.gain.gain.setValueAtTime(0,e),this.gain.gain.setTargetAtTime(this.level(),e,ae),this.osc.connect(this.gain).connect(this.ctx.destination),this.osc.start(e)}stop(){if(!this.osc)return;const e=this.ctx.currentTime;this.gain.gain.setTargetAtTime(0,e,ae),this.osc.stop(e+ae*8),this.osc=void 0,this.gain=void 0}level(){return Bt*this.volumeValue**2}}const Kt=.15,Wt=.01;function Xt(t,e,i,s){let n=0;for(let p=0;p<t.length;p++)n+=t[p]*t[p];if(Math.sqrt(n/t.length)<Wt)return null;const r=Math.min(Math.floor(e/i),Math.floor(t.length/2)),a=Math.max(2,Math.floor(e/s)),l=t.length-r,o=new Float32Array(r+1);o[0]=1;let d=0;for(let p=1;p<=r;p++){let m=0;for(let v=0;v<l;v++){const F=t[v]-t[v+p];m+=F*F}d+=m,o[p]=d?m*p/d:1}let h=a;for(;h<=r&&o[h]>=Kt;)h++;if(h>r)return null;for(;h+1<=r&&o[h+1]<o[h];)h++;let c=h;if(h>1&&h<r){const[p,m,v]=[o[h-1],o[h],o[h+1]],F=p-2*m+v;F&&(c=h+(p-v)/(2*F))}return e/c}const Fe=4096,Yt=50,Zt=5,Ke=400,Jt=3,oe=-60;class Qt{constructor(){this.minHz=30,this.maxHz=2e3,this.gainDbValue=0,this.level=oe,this.buffer=new Float32Array(Fe),this.recent=[],this.lastHeard=-1/0}get running(){return this.timerId!==void 0}get gainDb(){return this.gainDbValue}set gainDb(e){this.gainDbValue=e,this.gain&&(this.gain.gain.value=10**(e/20))}async start(){this.running||(this.stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:!1,noiseSuppression:!1,autoGainControl:!1}}),this.ctx=new AudioContext,this.gain=this.ctx.createGain(),this.gainDb=this.gainDbValue,this.analyser=this.ctx.createAnalyser(),this.analyser.fftSize=Fe,this.ctx.createMediaStreamSource(this.stream).connect(this.gain).connect(this.analyser),this.recent=[],this.lastHeard=-1/0,this.level=oe,this.timerId=window.setInterval(()=>this.detect(),Yt))}stop(){var e,i,s;window.clearInterval(this.timerId),this.timerId=void 0,(e=this.stream)==null||e.getTracks().forEach(n=>n.stop()),(i=this.ctx)==null||i.close(),this.stream=void 0,this.ctx=void 0,this.gain=void 0,this.analyser=void 0,(s=this.onLevel)==null||s.call(this,null)}detect(){var s,n;this.analyser.getFloatTimeDomainData(this.buffer),this.meter();const e=Xt(this.buffer,this.ctx.sampleRate,this.minHz,this.maxHz),i=performance.now();if(e){i-this.lastHeard>Ke&&(this.recent=[]),this.lastHeard=i,this.recent=[...this.recent,e].slice(-Zt);const r=[...this.recent].sort((a,l)=>a-l);(s=this.onPitch)==null||s.call(this,r[r.length>>1])}else i-this.lastHeard>Ke&&((n=this.onPitch)==null||n.call(this,null))}meter(){var s;let e=0;for(let n=0;n<this.buffer.length;n++)e=Math.max(e,Math.abs(this.buffer[n]));const i=e>0?20*Math.log10(e):oe;this.level=Math.max(i,this.level-Jt,oe),(s=this.onLevel)==null||s.call(this,this.level)}}const S=[{id:"guitar",label:"Guitar",strings:[40,45,50,55,59,64],minHz:60,maxHz:1e3},{id:"bass",label:"Bass",strings:[28,33,38,43],minHz:30,maxHz:400},{id:"violin",label:"Violin",strings:[55,62,69,76],minHz:150,maxHz:2e3},{id:"chromatic",label:"Chromatic",strings:[],minHz:30,maxHz:2e3}],ei=["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];function xt(t){return ei[(t%12+12)%12]}function ti(t,e,i){const s=69+12*Math.log2(t/e);let n=Math.round(s),r=-1;i.strings.length&&(r=i.strings.reduce((l,o,d)=>Math.abs(s-o)<Math.abs(s-i.strings[l])?d:l,0),n=i.strings[r]);const a=xt(n);return{letter:a[0],sharp:a.length>1,octave:Math.floor(n/12)-1,cents:(s-n)*100,stringIndex:r}}var ii=Object.defineProperty,si=Object.getOwnPropertyDescriptor,vt=(t,e,i,s)=>{for(var n=s>1?void 0:s?si(e,i):e,r=t.length-1,a;r>=0;r--)(a=t[r])&&(n=(s?a(e,i,n):a(n))||n);return s&&n&&ii(e,i,n),n};const Se=[-48,-42,-36,-30,-24,-18,-12,-8,-4,-1];function ni(t){return t===Se.length-1?"red":t>=Se.length-3?"yellow":"green"}let ue=class extends k{constructor(){super(...arguments),this.level=null}render(){const t=this.level??-1/0;return f`
       <div class="ladder" role="meter" aria-label="Input level" aria-valuemin="-60" aria-valuemax="0" aria-valuenow=${Math.max(-60,Math.round(t))}>
-        ${Se.map((e,s)=>f`<span class="led ${rs(s)} ${t>=e?"on":""}"></span>`)}
+        ${Se.map((e,i)=>f`<span class="led ${ni(i)} ${t>=e?"on":""}"></span>`)}
       </div>
-    `}};ue.styles=V`
+    `}};ue.styles=q`
     :host {
       display: block;
       height: 100%;
@@ -156,12 +173,12 @@
       background: var(--on);
       box-shadow: 0 0 6px 1px var(--glow);
     }
-  `;xt([g({type:Number})],ue.prototype,"level",2);ue=xt([q("input-meter")],ue);var ns=Object.defineProperty,as=Object.getOwnPropertyDescriptor,Oe=(t,e,s,i)=>{for(var r=i>1?void 0:i?as(e,s):e,n=t.length-1,a;n>=0;n--)(a=t[n])&&(r=(i?a(e,s,r):a(r))||r);return i&&r&&ns(e,s,r),r};const os=40,yt=72,B=7,b=1.2,W=B/2,X=os-B/2,we=B/2,Y=yt/2,_e=yt-B/2;function Ee(t,e,s){const i=B/2;return`${e},${t} ${e+i},${t-i} ${s-i},${t-i} ${s},${t} ${s-i},${t+i} ${e+i},${t+i}`}function le(t,e,s){const i=B/2;return`${t},${e} ${t+i},${e+i} ${t+i},${s-i} ${t},${s} ${t-i},${s-i} ${t-i},${e+i}`}const ls={a:Ee(we,W+b,X-b),b:le(X,we+b,Y-b),c:le(X,Y+b,_e-b),d:Ee(_e,W+b,X-b),e:le(W,Y+b,_e-b),f:le(W,we+b,Y-b),g:Ee(Y,W+b,X-b)},hs={0:"abcdef",1:"bc",2:"abged",3:"abgcd",4:"fgbc",5:"afgcd",6:"afgedc",7:"abc",8:"abcdefg",9:"abcdfg",A:"abcefg",B:"cdefg",b:"cdefg",C:"adef",D:"bcdeg",d:"bcdeg",E:"adefg",F:"aefg",G:"acdef",r:"eg","-":"g",_:"d"," ":""};function cs(t){const e=[];for(const s of t)s==="."&&e.length?e[e.length-1].dp=!0:e.push({ch:s,dp:!1});return e}let ie=class extends E{constructor(){super(...arguments),this.text="",this.decimals=!1}render(){return cs(this.text).map(({ch:t,dp:e})=>{const s=hs[t]??"";return f`<svg viewBox="-9 -1 52 74" aria-hidden="true">
+  `;vt([g({type:Number})],ue.prototype,"level",2);ue=vt([V("input-meter")],ue);var ri=Object.defineProperty,ai=Object.getOwnPropertyDescriptor,Oe=(t,e,i,s)=>{for(var n=s>1?void 0:s?ai(e,i):e,r=t.length-1,a;r>=0;r--)(a=t[r])&&(n=(s?a(e,i,n):a(n))||n);return s&&n&&ri(e,i,n),n};const oi=40,yt=72,B=7,b=1.2,W=B/2,X=oi-B/2,$e=B/2,Y=yt/2,_e=yt-B/2;function ke(t,e,i){const s=B/2;return`${e},${t} ${e+s},${t-s} ${i-s},${t-s} ${i},${t} ${i-s},${t+s} ${e+s},${t+s}`}function le(t,e,i){const s=B/2;return`${t},${e} ${t+s},${e+s} ${t+s},${i-s} ${t},${i} ${t-s},${i-s} ${t-s},${e+s}`}const li={a:ke($e,W+b,X-b),b:le(X,$e+b,Y-b),c:le(X,Y+b,_e-b),d:ke(_e,W+b,X-b),e:le(W,Y+b,_e-b),f:le(W,$e+b,Y-b),g:ke(Y,W+b,X-b)},hi={0:"abcdef",1:"bc",2:"abged",3:"abgcd",4:"fgbc",5:"afgcd",6:"afgedc",7:"abc",8:"abcdefg",9:"abcdfg",A:"abcefg",B:"cdefg",b:"cdefg",C:"adef",D:"bcdeg",d:"bcdeg",E:"adefg",F:"aefg",G:"acdef",r:"eg","-":"g",_:"d"," ":""};function di(t){const e=[];for(const i of t)i==="."&&e.length?e[e.length-1].dp=!0:e.push({ch:i,dp:!1});return e}let se=class extends k{constructor(){super(...arguments),this.text="",this.decimals=!1}render(){return di(this.text).map(({ch:t,dp:e})=>{const i=hi[t]??"";return f`<svg viewBox="-9 -1 52 74" aria-hidden="true">
         <g transform="skewX(-6)">
-          ${Object.entries(ls).map(([i,r])=>$`<polygon points=${r} class=${s.includes(i)?"on":"off"}></polygon>`)}
+          ${Object.entries(li).map(([s,n])=>w`<polygon points=${n} class=${i.includes(s)?"on":"off"}></polygon>`)}
         </g>
-        ${this.decimals?$`<circle cx="45" cy="68.5" r="3.6" class=${e?"on":"off"}></circle>`:null}
-      </svg>`})}};ie.styles=V`
+        ${this.decimals?w`<circle cx="45" cy="68.5" r="3.6" class=${e?"on":"off"}></circle>`:null}
+      </svg>`})}};se.styles=q`
     :host {
       display: inline-flex;
       gap: 0.35em;
@@ -179,7 +196,7 @@
     .off {
       fill: var(--segment-off, rgba(255, 58, 31, 0.07));
     }
-  `;Oe([g()],ie.prototype,"text",2);Oe([g({type:Boolean})],ie.prototype,"decimals",2);ie=Oe([q("segment-display")],ie);var ds=Object.defineProperty,ps=Object.getOwnPropertyDescriptor,G=(t,e,s,i)=>{for(var r=i>1?void 0:i?ps(e,s):e,n=t.length-1,a;n>=0;n--)(a=t[n])&&(r=(i?a(e,s,r):a(r))||r);return i&&r&&ds(e,s,r),r};const fe=600,Me=115,M=fe/2,L=505,We=470,gs=478,us=493,Xe=484,Q=50,fs=30,Ye=-33,Ze=330,he=4.6,Je=1.1,ms={stiffness:170,damping:19},bs={stiffness:60,damping:16},vs=1/30,j=t=>Math.max(-Q,Math.min(Q,t))/Q*fs;function re(t,e){const s=t*Math.PI/180;return{x:M+e*Math.sin(s),y:L-e*Math.cos(s)}}function xs(t,e,s){const i=re(j(t),s),r=re(j(e),s);return`M${i.x} ${i.y} A${s} ${s} 0 0 1 ${r.x} ${r.y}`}const ys=Array.from({length:2*Q/5+1},(t,e)=>{const s=e*5-Q,i=s%25===0?26:s%10===0?19:12,r=re(j(s),We-i),n=re(j(s),We);return $`<line class=${s%25===0?"major":""} x1=${r.x} y1=${r.y} x2=${n.x} y2=${n.y}></line>`}),$s=[["green",-5,5],["yellow",5,15],["orange",15,30],["red",30,50]].flatMap(([t,e,s])=>(e<0?[[e,s]]:[[-s,-e],[e,s]]).map(([r,n])=>$`<path class="zone ${t}" d=${xs(r,n,gs)}></path>`)),ws=[-50,-25,0,25,50].map(t=>{const e=re(j(t),us);return{text:`${t>0?"+":""}${t}`,left:e.x/fe*100,top:e.y/Me*100}});let P=class extends E{constructor(){super(...arguments),this.reading=null,this.frequency=null,this.message="",this.active=!1,this.angle=Ye,this.velocity=0,this.tick=t=>{const e=this.lastTime===void 0?0:Math.min(vs,Math.max(0,(t-this.lastTime)/1e3));this.lastTime=t;const{stiffness:s,damping:i}=this.reading?ms:bs;this.velocity+=(s*(this.target-this.angle)-i*this.velocity)*e,this.angle+=this.velocity*e,this.settled()?(this.angle=this.target,this.velocity=0,this.frameId=void 0):this.frameId=requestAnimationFrame(this.tick),this.applyAngle()}}render(){const{reading:t}=this,e=[[M-he,L-Ze],[M+he,L-Ze],[M+Je,L-Xe],[M-Je,L-Xe]].join(" "),s=this.frequency?this.frequency.toFixed(1).padStart(6," "):" ---.-";return f`
+  `;Oe([g()],se.prototype,"text",2);Oe([g({type:Boolean})],se.prototype,"decimals",2);se=Oe([V("segment-display")],se);var ci=Object.defineProperty,pi=Object.getOwnPropertyDescriptor,G=(t,e,i,s)=>{for(var n=s>1?void 0:s?pi(e,i):e,r=t.length-1,a;r>=0;r--)(a=t[r])&&(n=(s?a(e,i,n):a(n))||n);return s&&n&&ci(e,i,n),n};const fe=600,Me=115,M=fe/2,I=505,We=470,gi=478,ui=493,Xe=484,Q=50,fi=30,Ye=-33,Ze=330,he=4.6,Je=1.1,mi={stiffness:170,damping:19},bi={stiffness:60,damping:16},xi=1/30,j=t=>Math.max(-Q,Math.min(Q,t))/Q*fi;function ne(t,e){const i=t*Math.PI/180;return{x:M+e*Math.sin(i),y:I-e*Math.cos(i)}}function vi(t,e,i){const s=ne(j(t),i),n=ne(j(e),i);return`M${s.x} ${s.y} A${i} ${i} 0 0 1 ${n.x} ${n.y}`}const yi=Array.from({length:2*Q/5+1},(t,e)=>{const i=e*5-Q,s=i%25===0?26:i%10===0?19:12,n=ne(j(i),We-s),r=ne(j(i),We);return w`<line class=${i%25===0?"major":""} x1=${n.x} y1=${n.y} x2=${r.x} y2=${r.y}></line>`}),wi=[["green",-5,5],["yellow",5,15],["orange",15,30],["red",30,50]].flatMap(([t,e,i])=>(e<0?[[e,i]]:[[-i,-e],[e,i]]).map(([n,r])=>w`<path class="zone ${t}" d=${vi(n,r,gi)}></path>`)),$i=[-50,-25,0,25,50].map(t=>{const e=ne(j(t),ui);return{text:`${t>0?"+":""}${t}`,left:e.x/fe*100,top:e.y/Me*100}});let D=class extends k{constructor(){super(...arguments),this.reading=null,this.frequency=null,this.message="",this.active=!1,this.angle=Ye,this.velocity=0,this.tick=t=>{const e=this.lastTime===void 0?0:Math.min(xi,Math.max(0,(t-this.lastTime)/1e3));this.lastTime=t;const{stiffness:i,damping:s}=this.reading?mi:bi;this.velocity+=(i*(this.target-this.angle)-s*this.velocity)*e,this.angle+=this.velocity*e,this.settled()?(this.angle=this.target,this.velocity=0,this.frameId=void 0):this.frameId=requestAnimationFrame(this.tick),this.applyAngle()}}render(){const{reading:t}=this,e=[[M-he,I-Ze],[M+he,I-Ze],[M+Je,I-Xe],[M-Je,I-Xe]].join(" "),i=this.frequency?this.frequency.toFixed(1).padStart(6," "):" ---.-";return f`
       <div class="glass" role="status" aria-live="polite" aria-label=${this.describe()}>
         <div class="note-row" aria-hidden="true">
           <span class="accidental">♭</span>
@@ -215,34 +232,41 @@
                 <stop offset="1" stop-color="#ff6a34" />
               </linearGradient>
             </defs>
-            ${$s} ${ys}
+            ${wi} ${yi}
             <g transform="translate(6 9)">
               <g class="needle-shadow"><polygon points=${e}></polygon></g>
             </g>
             <g class="needle ${t?"":"resting"}"><polygon points=${e}></polygon></g>
             <rect x="0" y=${Me-22} width=${fe} height="22" fill="url(#shroud)"></rect>
           </svg>
-          ${ws.map(i=>f`<span class="scale-label" style="left: ${i.left}%; top: ${i.top}%">${i.text}</span>`)}
+          ${$i.map(s=>f`<span class="scale-label" style="left: ${s.left}%; top: ${s.top}%">${s.text}</span>`)}
         </div>
 
         <div class="info-row" aria-hidden="true">
           ${this.message?f`<span class="message">${this.message}</span>`:f`<div class="strings">
-                ${this.tuning.strings.length?this.tuning.strings.map((i,r)=>f`<span class=${(t==null?void 0:t.stringIndex)===r?"on":""}>${vt(i)}</span>`):f`<span>Chromatic</span>`}
+                ${this.tuning.strings.length?this.tuning.strings.map((s,n)=>f`<span class=${(t==null?void 0:t.stringIndex)===n?"on":""}>${xt(s)}</span>`):f`<span>Chromatic</span>`}
               </div>`}
           <div class="frequency">
-            <segment-display decimals .text=${s}></segment-display>
+            <segment-display decimals .text=${i}></segment-display>
             <span>Hz</span>
           </div>
         </div>
       </div>
-    `}disconnectedCallback(){super.disconnectedCallback(),this.frameId!==void 0&&cancelAnimationFrame(this.frameId),this.frameId=void 0}updated(){matchMedia("(prefers-reduced-motion: reduce)").matches?(this.angle=this.target,this.velocity=0):this.frameId===void 0&&!this.settled()&&(this.lastTime=void 0,this.frameId=requestAnimationFrame(this.tick)),this.applyAngle()}get target(){return this.reading?j(this.reading.cents):Ye}settled(){return Math.abs(this.target-this.angle)<.01&&Math.abs(this.velocity)<.01}applyAngle(){const t=`rotate(${this.angle}deg)`;this.renderRoot.querySelectorAll(".needle, .needle-shadow").forEach(e=>e.style.transform=t)}describe(){if(this.message)return this.message;const{reading:t}=this;if(!t)return"No note detected";const e=`${t.letter}${t.sharp?" sharp":""} ${t.octave}`,s=Math.round(t.cents);if(s===0)return`${e}, in tune`;const i=Math.abs(s);return`${e}, ${i} ${i===1?"cent":"cents"} ${s<0?"flat":"sharp"}`}};P.styles=V`
+    `}disconnectedCallback(){super.disconnectedCallback(),this.frameId!==void 0&&cancelAnimationFrame(this.frameId),this.frameId=void 0}updated(){matchMedia("(prefers-reduced-motion: reduce)").matches?(this.angle=this.target,this.velocity=0):this.frameId===void 0&&!this.settled()&&(this.lastTime=void 0,this.frameId=requestAnimationFrame(this.tick)),this.applyAngle()}get target(){return this.reading?j(this.reading.cents):Ye}settled(){return Math.abs(this.target-this.angle)<.01&&Math.abs(this.velocity)<.01}applyAngle(){const t=`rotate(${this.angle}deg)`;this.renderRoot.querySelectorAll(".needle, .needle-shadow").forEach(e=>e.style.transform=t)}describe(){if(this.message)return this.message;const{reading:t}=this;if(!t)return"No note detected";const e=`${t.letter}${t.sharp?" sharp":""} ${t.octave}`,i=Math.round(t.cents);if(i===0)return`${e}, in tune`;const s=Math.abs(i);return`${e}, ${s} ${s===1?"cent":"cents"} ${i<0?"flat":"sharp"}`}};D.styles=q`
     :host {
       display: block;
     }
+    /*
+     * Given a height taller than its content (landscape layout), the extra space goes between the
+     * note readout, the needle meter and the bottom row.
+     */
     .glass {
       position: relative;
       display: grid;
       grid-template-columns: minmax(0, 1fr);
+      align-content: space-between;
+      height: 100%;
+      box-sizing: border-box;
       gap: 0.7rem;
       padding: 1rem 1.4rem 0.9rem;
       border-radius: 4px;
@@ -377,7 +401,7 @@
     .needle,
     .needle-shadow {
       transform-box: view-box;
-      transform-origin: ${M}px ${L}px;
+      transform-origin: ${M}px ${I}px;
     }
     .needle polygon {
       fill: url(#blade);
@@ -438,7 +462,7 @@
     .frequency segment-display {
       font-size: var(--freq-size, 1.5rem);
     }
-  `;G([g({attribute:!1})],P.prototype,"reading",2);G([g({attribute:!1})],P.prototype,"tuning",2);G([g({type:Number})],P.prototype,"frequency",2);G([g()],P.prototype,"message",2);G([g({type:Boolean,reflect:!0})],P.prototype,"active",2);P=G([q("tuner-meter")],P);class $t{constructor(e,s,i){this.getValue=e,this.setValue=s,this.options=i,this.dragged=!1,this.pointerDown=r=>{r.button===0&&(r.currentTarget.setPointerCapture(r.pointerId),this.start={x:r.clientX,y:r.clientY,value:this.getValue()},this.dragged=!1)},this.pointerMove=r=>{if(!this.start)return;const n=r.clientX-this.start.x,a=this.start.y-r.clientY;if(!this.dragged&&Math.hypot(n,a)<(this.options.thresholdPx??0))return;this.dragged=!0;const l=r.shiftKey?this.options.finePerPx:this.options.perPx;this.setValue(Math.round(this.start.value+(n+a)*l))},this.pointerUp=()=>{this.start=void 0},this.wheel=r=>{r.preventDefault();const n=r.deltaY||r.deltaX;n&&this.setValue(this.getValue()+(n<0?1:-1))}}}var _s=Object.defineProperty,Es=Object.getOwnPropertyDescriptor,_=(t,e,s,i)=>{for(var r=i>1?void 0:i?Es(e,s):e,n=t.length-1,a;n>=0;n--)(a=t[n])&&(r=(i?a(e,s,r):a(r))||r);return i&&r&&_s(e,s,r),r};let v=class extends E{constructor(){super(...arguments),this.value=0,this.min=0,this.max=999,this.defaultValue=0,this.unit="",this.label="Value",this.editing=!1,this.buffer="",this.gestures=new $t(()=>this.value,t=>this.emit(t),{perPx:.25,finePerPx:.05,thresholdPx:4})}render(){const t=String(this.max).length,e=this.editing?(this.buffer+"_".repeat(t)).slice(0,t):String(this.value).padStart(t," ");return f`
+  `;G([g({attribute:!1})],D.prototype,"reading",2);G([g({attribute:!1})],D.prototype,"tuning",2);G([g({type:Number})],D.prototype,"frequency",2);G([g()],D.prototype,"message",2);G([g({type:Boolean,reflect:!0})],D.prototype,"active",2);D=G([V("tuner-meter")],D);class wt{constructor(e,i,s){this.getValue=e,this.setValue=i,this.options=s,this.dragged=!1,this.pointerDown=n=>{n.button===0&&(n.currentTarget.setPointerCapture(n.pointerId),this.start={x:n.clientX,y:n.clientY,value:this.getValue()},this.dragged=!1)},this.pointerMove=n=>{if(!this.start)return;const r=n.clientX-this.start.x,a=this.start.y-n.clientY;if(!this.dragged&&Math.hypot(r,a)<(this.options.thresholdPx??0))return;this.dragged=!0;const l=n.shiftKey?this.options.finePerPx:this.options.perPx;this.setValue(Math.round(this.start.value+(r+a)*l))},this.pointerUp=()=>{this.start=void 0},this.wheel=n=>{n.preventDefault();const r=n.deltaY||n.deltaX;r&&this.setValue(this.getValue()+(r<0?1:-1))}}}var _i=Object.defineProperty,ki=Object.getOwnPropertyDescriptor,_=(t,e,i,s)=>{for(var n=s>1?void 0:s?ki(e,i):e,r=t.length-1,a;r>=0;r--)(a=t[r])&&(n=(s?a(e,i,n):a(n))||n);return s&&n&&_i(e,i,n),n};let x=class extends k{constructor(){super(...arguments),this.value=0,this.min=0,this.max=999,this.defaultValue=0,this.unit="",this.label="Value",this.editing=!1,this.buffer="",this.gestures=new wt(()=>this.value,t=>this.emit(t),{perPx:.25,finePerPx:.05,thresholdPx:4})}render(){const t=String(this.max).length,e=this.editing?(this.buffer+"_".repeat(t)).slice(0,t):String(this.value).padStart(t," ");return f`
       <div
         class="glass ${this.editing?"editing":""}"
         role="button"
@@ -451,11 +475,13 @@
         @pointermove=${this.gestures.pointerMove}
         @pointerup=${this.gestures.pointerUp}
         @pointercancel=${this.gestures.pointerUp}
-        @wheel=${s=>this.editing?s.preventDefault():this.gestures.wheel(s)}
-        @keydown=${s=>s.key==="Enter"&&this.startEdit()}
+        @wheel=${i=>this.editing?i.preventDefault():this.gestures.wheel(i)}
+        @keydown=${i=>i.key==="Enter"&&this.startEdit()}
       >
-        <segment-display .text=${e}></segment-display>
-        <span class="unit">${this.unit}</span>
+        <span class="readout">
+          <segment-display .text=${e}></segment-display>
+          <span class="unit">${this.unit}</span>
+        </span>
         <input
           inputmode="numeric"
           autocomplete="off"
@@ -465,19 +491,20 @@
           @blur=${()=>this.finish(!0)}
         />
       </div>
-    `}async startEdit(){this.editing||(this.buffer="",this.editing=!0,await this.updateComplete,this.input.value="",this.input.focus())}onInput(){this.buffer=this.input.value.replace(/\D/g,"").slice(0,String(this.max).length),this.input.value=this.buffer}onInputKeyDown(t){(t.key==="Enter"||t.key==="Escape")&&(t.preventDefault(),t.stopPropagation(),this.finish(t.key==="Enter"))}finish(t){this.editing&&(this.editing=!1,t&&this.buffer&&this.emit(Number(this.buffer)),this.shadowRoot.activeElement===this.input&&this.glass.focus())}emit(t){const e=Math.min(this.max,Math.max(this.min,t));e!==this.value&&this.dispatchEvent(new CustomEvent("value-change",{detail:e,bubbles:!0,composed:!0}))}};v.styles=V`
+    `}async startEdit(){this.editing||(this.buffer="",this.editing=!0,await this.updateComplete,this.input.value="",this.input.focus())}onInput(){this.buffer=this.input.value.replace(/\D/g,"").slice(0,String(this.max).length),this.input.value=this.buffer}onInputKeyDown(t){(t.key==="Enter"||t.key==="Escape")&&(t.preventDefault(),t.stopPropagation(),this.finish(t.key==="Enter"))}finish(t){this.editing&&(this.editing=!1,t&&this.buffer&&this.emit(Number(this.buffer)),this.shadowRoot.activeElement===this.input&&this.glass.focus())}emit(t){const e=Math.min(this.max,Math.max(this.min,t));e!==this.value&&this.dispatchEvent(new CustomEvent("value-change",{detail:e,bubbles:!0,composed:!0}))}};x.styles=q`
+    /* A size container, so the digits can be sized from the display's own width. */
     :host {
       display: block;
+      container-type: inline-size;
     }
     .glass {
       position: relative;
       display: flex;
-      align-items: flex-end;
+      align-items: center;
       justify-content: center;
-      gap: 0.6rem;
       height: 100%;
       box-sizing: border-box;
-      padding: 0.9rem 1.1rem 0.8rem;
+      padding: 0.85rem 1.1rem;
       border-radius: 4px;
       background:
         repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.18) 0 1px, transparent 1px 3px),
@@ -516,8 +543,18 @@
         0 0 0 4px #141412,
         0 0 0 6px #dcb544;
     }
+    /* Digits and unit sit on a common bottom line; the pair is centred vertically in the glass. */
+    .readout {
+      display: flex;
+      align-items: flex-end;
+      gap: 0.6rem;
+    }
+    /*
+     * Digits as large as --digit-size allows, but never wider than the display: three digits are
+     * about 2.85 font sizes wide, and padding, gap and unit take about 4.3rem.
+     */
     segment-display {
-      font-size: var(--digit-size, clamp(3rem, 10vw, 4rem));
+      font-size: min(var(--digit-size, clamp(3rem, 10vw, 4rem)), calc((100cqw - 4.3rem) / 2.85));
     }
     .editing segment-display {
       animation: pulse 1.1s ease-in-out infinite;
@@ -541,13 +578,13 @@
       height: 1px;
       pointer-events: none;
     }
-  `;_([g({type:Number})],v.prototype,"value",2);_([g({type:Number})],v.prototype,"min",2);_([g({type:Number})],v.prototype,"max",2);_([g({type:Number,attribute:"default-value"})],v.prototype,"defaultValue",2);_([g()],v.prototype,"unit",2);_([g()],v.prototype,"label",2);_([w()],v.prototype,"editing",2);_([w()],v.prototype,"buffer",2);_([bt("input")],v.prototype,"input",2);_([bt(".glass")],v.prototype,"glass",2);v=_([q("value-display")],v);var ks=Object.defineProperty,As=Object.getOwnPropertyDescriptor,H=(t,e,s,i)=>{for(var r=i>1?void 0:i?As(e,s):e,n=t.length-1,a;n>=0;n--)(a=t[n])&&(r=(i?a(e,s,r):a(r))||r);return i&&r&&ks(e,s,r),r};const me=270,Qe=25,Ss=Array.from({length:Qe},(t,e)=>{const s=(-me/2+me*e/(Qe-1)-90)*Math.PI/180,i=e%4===0?41:44;return $`<line
-    x1=${50+i*Math.cos(s)}
-    y1=${50+i*Math.sin(s)}
-    x2=${50+48*Math.cos(s)}
-    y2=${50+48*Math.sin(s)}
+  `;_([g({type:Number})],x.prototype,"value",2);_([g({type:Number})],x.prototype,"min",2);_([g({type:Number})],x.prototype,"max",2);_([g({type:Number,attribute:"default-value"})],x.prototype,"defaultValue",2);_([g()],x.prototype,"unit",2);_([g()],x.prototype,"label",2);_([$()],x.prototype,"editing",2);_([$()],x.prototype,"buffer",2);_([bt("input")],x.prototype,"input",2);_([bt(".glass")],x.prototype,"glass",2);x=_([V("value-display")],x);var Ei=Object.defineProperty,Ai=Object.getOwnPropertyDescriptor,H=(t,e,i,s)=>{for(var n=s>1?void 0:s?Ai(e,i):e,r=t.length-1,a;r>=0;r--)(a=t[r])&&(n=(s?a(e,i,n):a(n))||n);return s&&n&&Ei(e,i,n),n};const me=270,Qe=25,Si=Array.from({length:Qe},(t,e)=>{const i=(-me/2+me*e/(Qe-1)-90)*Math.PI/180,s=e%4===0?41:44;return w`<line
+    x1=${50+s*Math.cos(i)}
+    y1=${50+s*Math.sin(i)}
+    x2=${50+48*Math.cos(i)}
+    y2=${50+48*Math.sin(i)}
     class=${e%4===0?"major":""}
-  ></line>`});let A=class extends E{constructor(){super(...arguments),this.value=0,this.min=0,this.max=100,this.defaultValue=0,this.label="Value",this.unit="",this.gestures=new $t(()=>this.value,t=>this.emit(t),{perPx:.25,finePerPx:.05})}render(){const t=-me/2+me*(this.value-this.min)/(this.max-this.min);return f`
+  ></line>`});let A=class extends k{constructor(){super(...arguments),this.value=0,this.min=0,this.max=100,this.defaultValue=0,this.label="Value",this.unit="",this.gestures=new wt(()=>this.value,t=>this.emit(t),{perPx:.25,finePerPx:.05})}render(){const t=-me/2+me*(this.value-this.min)/(this.max-this.min);return f`
       <div
         class="wrap"
         role="slider"
@@ -566,13 +603,13 @@
         @keydown=${this.onKeyDown}
         @dblclick=${()=>this.emit(this.defaultValue)}
       >
-        <svg class="scale" viewBox="0 0 100 100" aria-hidden="true">${Ss}</svg>
+        <svg class="scale" viewBox="0 0 100 100" aria-hidden="true">${Si}</svg>
         <div class="shadow"></div>
         <div class="skirt" style="transform: rotate(${t}deg)"></div>
         <div class="cap"></div>
         <div class="pointer" style="transform: rotate(${t}deg)"></div>
       </div>
-    `}onKeyDown(t){const e={ArrowUp:1,ArrowRight:1,ArrowDown:-1,ArrowLeft:-1,PageUp:6,PageDown:-6};if(t.key in e)this.emit(this.value+e[t.key]);else if(t.key==="Home")this.emit(this.min);else if(t.key==="End")this.emit(this.max);else return;t.preventDefault()}emit(t){const e=Math.min(this.max,Math.max(this.min,t));e!==this.value&&this.dispatchEvent(new CustomEvent("value-change",{detail:e,bubbles:!0,composed:!0}))}};A.styles=V`
+    `}onKeyDown(t){const e={ArrowUp:1,ArrowRight:1,ArrowDown:-1,ArrowLeft:-1,PageUp:6,PageDown:-6};if(t.key in e)this.emit(this.value+e[t.key]);else if(t.key==="Home")this.emit(this.min);else if(t.key==="End")this.emit(this.max);else return;t.preventDefault()}emit(t){const e=Math.min(this.max,Math.max(this.min,t));e!==this.value&&this.dispatchEvent(new CustomEvent("value-change",{detail:e,bubbles:!0,composed:!0}))}};A.styles=q`
     :host {
       display: block;
       width: var(--knob-size, 104px);
@@ -667,12 +704,12 @@
       background: linear-gradient(180deg, #f3ecd8 0 32%, #1a1a1a 32%);
       box-shadow: 0 0 1px rgba(0, 0, 0, 0.7);
     }
-  `;H([g({type:Number})],A.prototype,"value",2);H([g({type:Number})],A.prototype,"min",2);H([g({type:Number})],A.prototype,"max",2);H([g({type:Number,attribute:"default-value"})],A.prototype,"defaultValue",2);H([g()],A.prototype,"label",2);H([g()],A.prototype,"unit",2);A=H([q("value-knob")],A);var Ms=Object.defineProperty,Ts=Object.getOwnPropertyDescriptor,k=(t,e,s,i)=>{for(var r=i>1?void 0:i?Ts(e,s):e,n=t.length-1,a;n>=0;n--)(a=t[n])&&(r=(i?a(e,s,r):a(r))||r);return i&&r&&Ms(e,s,r),r};const et=420,tt=460,ke=440,st=-12,it=24,rt=3,Cs=40,Ae=-54,Ps=-24,ce=100,nt=50,at="tuner-settings",ot="https://buy.stripe.com/dRm4gygw1gGUeBaby13ZK01",lt={width:680,height:850},ht="tuner-window-sized",Ds=$`
+  `;H([g({type:Number})],A.prototype,"value",2);H([g({type:Number})],A.prototype,"min",2);H([g({type:Number})],A.prototype,"max",2);H([g({type:Number,attribute:"default-value"})],A.prototype,"defaultValue",2);H([g()],A.prototype,"label",2);H([g()],A.prototype,"unit",2);A=H([V("value-knob")],A);var Mi=Object.defineProperty,Ti=Object.getOwnPropertyDescriptor,E=(t,e,i,s)=>{for(var n=s>1?void 0:s?Ti(e,i):e,r=t.length-1,a;r>=0;r--)(a=t[r])&&(n=(s?a(e,i,n):a(n))||n);return s&&n&&Mi(e,i,n),n};const et=420,tt=460,Ee=440,it=-12,st=24,nt=3,Ci=40,Ae=-54,Di=-24,de=100,rt=50,at="tuner-settings",ot="https://buy.stripe.com/dRm4gygw1gGUeBaby13ZK01",lt={width:680,height:850},ht="tuner-window-sized",Pi=w`
   <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="5.5">
     <circle cx="50" cy="50" r="45" />
     <path d="M41 18 V50 A9 9 0 0 0 59 50 V18" />
     <line x1="50" y1="59" x2="50" y2="82" />
-  </g>`;let y=class extends E{constructor(){super(),this.reference=ke,this.mode="guitar",this.running=!1,this.frequency=null,this.message="",this.gainDb=0,this.level=null,this.toneOn=!1,this.volume=nt,this.engine=new Qt,this.tone=new Ft,this.sizeObserver=new ResizeObserver(()=>this.fit()),this.fit=()=>{const{style:t}=this;t.transform=t.margin="",this.fitTip();const e=getComputedStyle(document.body),i=(window.innerHeight-parseFloat(e.paddingTop)-parseFloat(e.paddingBottom))/this.offsetHeight;i>=1||(t.transformOrigin="top center",t.transform=`scale(${i})`,t.margin=`0 0 ${-(1-i)*this.offsetHeight}px`)},this.onKeyDown=t=>{t.composedPath()[0]instanceof HTMLInputElement||t.ctrlKey||t.metaKey||t.altKey||(t.code==="Space"?(t.preventDefault(),t.repeat||this.toggle()):t.key==="t"||t.key==="T"?t.repeat||this.toggleTone():/^[1-9]$/.test(t.key)&&Number(t.key)<=S.length&&this.setMode(S[Number(t.key)-1].id))},this.onKeyUp=t=>{t.code==="Space"&&!(t.composedPath()[0]instanceof HTMLInputElement)&&t.preventDefault()},this.loadSettings(),this.applyRange(),this.engine.gainDb=this.gainDb,this.tone.frequency=this.reference,this.tone.volume=this.volume/ce,this.engine.onPitch=t=>this.frequency=t,this.engine.onLevel=t=>this.level=t}connectedCallback(){super.connectedCallback(),window.addEventListener("keydown",this.onKeyDown),window.addEventListener("keyup",this.onKeyUp),window.addEventListener("resize",this.fit),this.sizeObserver.observe(this)}firstUpdated(){this.sizeAppWindow(),this.fit()}disconnectedCallback(){super.disconnectedCallback(),window.removeEventListener("keydown",this.onKeyDown),window.removeEventListener("keyup",this.onKeyUp),window.removeEventListener("resize",this.fit),this.sizeObserver.disconnect(),this.engine.stop(),this.tone.stop()}get tuning(){return S.find(t=>t.id===this.mode)}render(){const t=this.running&&this.frequency?ts(this.frequency,this.reference,this.tuning):null;return f`
+  </g>`;let y=class extends k{constructor(){super(),this.reference=Ee,this.mode="guitar",this.running=!1,this.frequency=null,this.message="",this.gainDb=0,this.level=null,this.toneOn=!1,this.volume=rt,this.engine=new Qt,this.tone=new Ft,this.sizeObserver=new ResizeObserver(()=>this.fit()),this.fit=()=>{const{style:t}=this;t.transform=t.margin="",this.fitTip(),this.alignDisplay();const e=getComputedStyle(document.body),s=(window.innerHeight-parseFloat(e.paddingTop)-parseFloat(e.paddingBottom))/this.offsetHeight;s>=1||(t.transformOrigin="top center",t.transform=`scale(${s})`,t.margin=`0 0 ${-(1-s)*this.offsetHeight}px`)},this.onKeyDown=t=>{t.composedPath()[0]instanceof HTMLInputElement||t.ctrlKey||t.metaKey||t.altKey||(t.code==="Space"?(t.preventDefault(),t.repeat||this.toggle()):t.key==="t"||t.key==="T"?t.repeat||this.toggleTone():/^[1-9]$/.test(t.key)&&Number(t.key)<=S.length&&this.setMode(S[Number(t.key)-1].id))},this.onKeyUp=t=>{t.code==="Space"&&!(t.composedPath()[0]instanceof HTMLInputElement)&&t.preventDefault()},this.loadSettings(),this.applyRange(),this.engine.gainDb=this.gainDb,this.tone.frequency=this.reference,this.tone.volume=this.volume/de,this.engine.onPitch=t=>this.frequency=t,this.engine.onLevel=t=>this.level=t}connectedCallback(){super.connectedCallback(),window.addEventListener("keydown",this.onKeyDown),window.addEventListener("keyup",this.onKeyUp),window.addEventListener("resize",this.fit),this.sizeObserver.observe(this)}firstUpdated(){this.sizeAppWindow(),this.fit()}disconnectedCallback(){super.disconnectedCallback(),window.removeEventListener("keydown",this.onKeyDown),window.removeEventListener("keyup",this.onKeyUp),window.removeEventListener("resize",this.fit),this.sizeObserver.disconnect(),this.engine.stop(),this.tone.stop()}get tuning(){return S.find(t=>t.id===this.mode)}render(){const t=this.running&&this.frequency?ti(this.frequency,this.reference,this.tuning):null;return f`
       <div class="chassis">
         <div class="cheek left"></div>
         <div class="device">
@@ -680,97 +717,103 @@
             <span class="screw tl"></span>
             <span class="screw tr"></span>
             <div class="brand">
-              <svg class="logo" viewBox="0 0 100 100" aria-hidden="true">${Ds}</svg>
+              <svg class="logo" viewBox="0 0 100 100" aria-hidden="true">${Pi}</svg>
               Tuner<span class="model">FS-2</span>
             </div>
           </header>
 
-          <section class="meter-section">
-            <tuner-meter
-              ?active=${this.running}
-              .reading=${t}
-              .tuning=${this.tuning}
-              .frequency=${this.running?this.frequency:null}
-              .message=${this.message}
-            ></tuner-meter>
-          </section>
-
-          <section class="controls">
-            <button class="key start" @click=${this.toggle} aria-pressed=${this.running} aria-label="Tuner on / off">
-              <span class="key-led ${this.running?"on":""}"></span>
-            </button>
-            <div class="input-cell">
-              <value-knob
-                .value=${this.gainDb}
-                .min=${st}
-                .max=${it}
-                .defaultValue=${0}
-                label="Input gain"
-                unit="dB"
-                @value-change=${e=>this.setGain(e.detail)}
-              ></value-knob>
-              <input-meter .level=${this.running?this.level:null}></input-meter>
-            </div>
-            <value-display
-              .value=${this.reference}
-              .min=${et}
-              .max=${tt}
-              .defaultValue=${ke}
-              unit="Hz"
-              label="Reference pitch"
-              @value-change=${e=>this.setReference(e.detail)}
-            ></value-display>
-            <button
-              class="key fork"
-              @click=${this.toggleTone}
-              aria-pressed=${this.toneOn}
-              aria-label="Play the reference tone"
-            >
-              <span class="key-led ${this.toneOn?"on":""}"></span>
-              <svg class="fork-icon" viewBox="0 0 48 48" aria-hidden="true">${Vt}</svg>
-            </button>
-            <value-knob
-              class="volume"
-              .value=${this.volume}
-              .min=${0}
-              .max=${ce}
-              .defaultValue=${nt}
-              label="Tone volume"
-              unit="%"
-              @value-change=${e=>this.setVolume(e.detail)}
-            ></value-knob>
-            <div class="led-cell">
-              <div class="bezel">
-                <div class="led ${this.running?"on":""}" style=${this.tuneLed(t==null?void 0:t.cents,this.level)} role="presentation"></div>
-              </div>
+          <div class="panels">
+            <div class="panel display-panel">
+              <section class="meter-section">
+                <tuner-meter
+                  ?active=${this.running}
+                  .reading=${t}
+                  .tuning=${this.tuning}
+                  .frequency=${this.running?this.frequency:null}
+                  .message=${this.message}
+                ></tuner-meter>
+              </section>
             </div>
 
-            <div class="label start-label">On / Off</div>
-            <div class="label input-label">
-              Input <span class="dim gain">${Os(this.gainDb)}</span>
-            </div>
-            <div class="label ref-label">Ref. A4 <span class="dim">· click to type · drag or scroll</span></div>
-            <div class="label tone-label">Tone</div>
-            <div class="label volume-label">Volume</div>
-            <div class="label led-label">Tune</div>
-          </section>
-
-          <section class="modes" role="radiogroup" aria-label="Tuning mode">
-            <div class="label title">Tuning mode</div>
-            ${S.map(e=>f`
-                <button
-                  class="key mode"
-                  role="radio"
-                  aria-checked=${e.id===this.mode}
-                  aria-label=${e.label}
-                  @click=${()=>this.setMode(e.id)}
-                >
-                  <span class="key-led ${e.id===this.mode?"on":""}"></span>
+            <div class="panel controls-panel">
+              <section class="controls">
+                <button class="key start" @click=${this.toggle} aria-pressed=${this.running} aria-label="Tuner on / off">
+                  <span class="key-led ${this.running?"on":""}"></span>
                 </button>
-              `)}
-            ${S.map(e=>f`<svg class="icon" viewBox="0 0 48 48" aria-hidden="true">${qt[e.id]}</svg>`)}
-            ${S.map(e=>f`<div class="label caption">${e.label}</div>`)}
-          </section>
+                <div class="input-cell">
+                  <value-knob
+                    .value=${this.gainDb}
+                    .min=${it}
+                    .max=${st}
+                    .defaultValue=${0}
+                    label="Input gain"
+                    unit="dB"
+                    @value-change=${e=>this.setGain(e.detail)}
+                  ></value-knob>
+                  <input-meter .level=${this.running?this.level:null}></input-meter>
+                </div>
+                <value-display
+                  .value=${this.reference}
+                  .min=${et}
+                  .max=${tt}
+                  .defaultValue=${Ee}
+                  unit="Hz"
+                  label="Reference pitch"
+                  @value-change=${e=>this.setReference(e.detail)}
+                ></value-display>
+                <button
+                  class="key fork"
+                  @click=${this.toggleTone}
+                  aria-pressed=${this.toneOn}
+                  aria-label="Play the reference tone"
+                >
+                  <span class="key-led ${this.toneOn?"on":""}"></span>
+                  <svg class="fork-icon" viewBox="0 0 48 48" aria-hidden="true">${qt}</svg>
+                </button>
+                <value-knob
+                  class="volume"
+                  .value=${this.volume}
+                  .min=${0}
+                  .max=${de}
+                  .defaultValue=${rt}
+                  label="Tone volume"
+                  unit="%"
+                  @value-change=${e=>this.setVolume(e.detail)}
+                ></value-knob>
+                <div class="led-cell">
+                  <div class="bezel">
+                    <div class="led ${this.running?"on":""}" style=${this.tuneLed(t==null?void 0:t.cents,this.level)} role="presentation"></div>
+                  </div>
+                </div>
+
+                <div class="label start-label">On / Off</div>
+                <div class="label input-label">
+                  Input <span class="dim gain">${Oi(this.gainDb)}</span>
+                </div>
+                <div class="label ref-label">Ref. A4 <span class="dim">· click to type · drag or scroll</span></div>
+                <div class="label tone-label">Tone</div>
+                <div class="label volume-label">Volume</div>
+                <div class="label led-label">Tune</div>
+              </section>
+
+              <section class="modes" role="radiogroup" aria-label="Tuning mode">
+                <div class="label title">Tuning mode</div>
+                ${S.map(e=>f`
+                    <button
+                      class="key mode"
+                      role="radio"
+                      aria-checked=${e.id===this.mode}
+                      aria-label=${e.label}
+                      @click=${()=>this.setMode(e.id)}
+                    >
+                      <span class="key-led ${e.id===this.mode?"on":""}"></span>
+                    </button>
+                  `)}
+                ${S.map(e=>f`<svg class="icon" viewBox="0 0 48 48" aria-hidden="true">${Vt[e.id]}</svg>`)}
+                ${S.map(e=>f`<div class="label caption">${e.label}</div>`)}
+              </section>
+            </div>
+          </div>
 
           <footer>
             <span class="screw bl"></span>
@@ -792,7 +835,7 @@
               <a class="tip-short" href=${ot} target="_blank" rel="noopener">Buy me a Flat White ☕</a>
             </p>
           `}
-    `}async toggle(){if(this.engine.running){this.engine.stop(),this.running=!1,this.frequency=null;return}this.message="";try{await this.engine.start(),this.running=!0}catch(t){this.message=zs(t)}}tuneLed(t,e){const s=Math.min(1,Math.max(0,((e??Ae)-Ae)/(Ps-Ae)));let i=120,r=.12*(.4+.6*s);if(t!==void 0){const n=Math.min(1,Math.max(0,(Math.abs(t)-rt)/(Cs-rt))),a=Math.sqrt(n);i=120*(1-a),r=(1-.45*a)*(.2+.8*s)}return[`--led-core: hsl(${i} 100% ${18+74*r}%)`,`--led-mid: hsl(${i} 85% ${10+45*r}%)`,`--led-edge: hsl(${i} 85% ${6+26*r}%)`,`--led-glow: hsl(${i} 90% 50% / ${.55*r})`,`--led-halo: hsl(${i} 90% 50% / ${.22*r})`].join("; ")}sizeAppWindow(){if(!(!matchMedia("(display-mode: standalone)").matches||matchMedia("(pointer: coarse)").matches)){try{if(localStorage.getItem(ht))return;localStorage.setItem(ht,"1")}catch{return}window.resizeTo(lt.width,lt.height)}}fitTip(){const t=this.renderRoot.querySelector(".tip");t&&(t.classList.remove("short"),t.offsetHeight>parseFloat(getComputedStyle(t).lineHeight)*1.5&&t.classList.add("short"))}toggleTone(){this.tone.playing?this.tone.stop():this.tone.start(),this.toneOn=this.tone.playing}setVolume(t){this.volume=t,this.tone.volume=t/ce,this.saveSettings()}setReference(t){this.reference=t,this.tone.frequency=t,this.applyRange(),this.saveSettings()}setGain(t){this.gainDb=t,this.engine.gainDb=t,this.saveSettings()}setMode(t){this.mode=t,this.applyRange(),this.saveSettings()}applyRange(){const t=this.reference/ke;this.engine.minHz=this.tuning.minHz*t,this.engine.maxHz=this.tuning.maxHz*t}loadSettings(){try{const t=JSON.parse(localStorage.getItem(at)??"{}");typeof t.reference=="number"&&(this.reference=Math.min(tt,Math.max(et,t.reference))),S.some(e=>e.id===t.mode)&&(this.mode=t.mode),typeof t.gainDb=="number"&&(this.gainDb=Math.min(it,Math.max(st,t.gainDb))),typeof t.volume=="number"&&(this.volume=Math.min(ce,Math.max(0,t.volume)))}catch{}}saveSettings(){try{const{reference:t,mode:e,gainDb:s,volume:i}=this;localStorage.setItem(at,JSON.stringify({reference:t,mode:e,gainDb:s,volume:i}))}catch{}}};y.styles=V`
+    `}async toggle(){if(this.engine.running){this.engine.stop(),this.running=!1,this.frequency=null;return}this.message="";try{await this.engine.start(),this.running=!0}catch(t){this.message=zi(t)}}tuneLed(t,e){const i=Math.min(1,Math.max(0,((e??Ae)-Ae)/(Di-Ae)));let s=120,n=.12*(.4+.6*i);if(t!==void 0){const r=Math.min(1,Math.max(0,(Math.abs(t)-nt)/(Ci-nt))),a=Math.sqrt(r);s=120*(1-a),n=(1-.45*a)*(.2+.8*i)}return[`--led-core: hsl(${s} 100% ${18+74*n}%)`,`--led-mid: hsl(${s} 85% ${10+45*n}%)`,`--led-edge: hsl(${s} 85% ${6+26*n}%)`,`--led-glow: hsl(${s} 90% 50% / ${.55*n})`,`--led-halo: hsl(${s} 90% 50% / ${.22*n})`].join("; ")}sizeAppWindow(){if(!(!matchMedia("(display-mode: standalone)").matches||matchMedia("(pointer: coarse)").matches)){try{if(localStorage.getItem(ht))return;localStorage.setItem(ht,"1")}catch{return}window.resizeTo(lt.width,lt.height)}}alignDisplay(){const t=this.renderRoot,e=t.querySelector(".meter-section"),i=t.querySelector("tuner-meter");if(!e||!i)return;const s=t.querySelectorAll(".controls value-display, .controls .fork, .controls .volume, .ref-label, .tone-label, .volume-label");if(e.style.translate=i.style.height="",s.forEach(h=>h.style.translate=""),getComputedStyle(t.querySelector(".panels")).display!=="grid")return;const n=t.querySelector(".controls .start").getBoundingClientRect().top,r=t.querySelector(".modes .mode").getBoundingClientRect().bottom,a=t.querySelector(".controls value-display").getBoundingClientRect(),l=(n+r)/2-(a.top+a.bottom)/2;s.forEach(h=>h.style.translate=`0 ${l}px`);const o=3,d=r-n-2*o;d>i.offsetHeight&&(i.style.height=`${d}px`),e.style.translate=`0 ${n+o-i.getBoundingClientRect().top}px`}fitTip(){const t=this.renderRoot.querySelector(".tip");t&&(t.classList.remove("short"),t.offsetHeight>parseFloat(getComputedStyle(t).lineHeight)*1.5&&t.classList.add("short"))}toggleTone(){this.tone.playing?this.tone.stop():this.tone.start(),this.toneOn=this.tone.playing}setVolume(t){this.volume=t,this.tone.volume=t/de,this.saveSettings()}setReference(t){this.reference=t,this.tone.frequency=t,this.applyRange(),this.saveSettings()}setGain(t){this.gainDb=t,this.engine.gainDb=t,this.saveSettings()}setMode(t){this.mode=t,this.applyRange(),this.saveSettings()}applyRange(){const t=this.reference/Ee;this.engine.minHz=this.tuning.minHz*t,this.engine.maxHz=this.tuning.maxHz*t}loadSettings(){try{const t=JSON.parse(localStorage.getItem(at)??"{}");typeof t.reference=="number"&&(this.reference=Math.min(tt,Math.max(et,t.reference))),S.some(e=>e.id===t.mode)&&(this.mode=t.mode),typeof t.gainDb=="number"&&(this.gainDb=Math.min(st,Math.max(it,t.gainDb))),typeof t.volume=="number"&&(this.volume=Math.min(de,Math.max(0,t.volume)))}catch{}}saveSettings(){try{const{reference:t,mode:e,gainDb:i,volume:s}=this;localStorage.setItem(at,JSON.stringify({reference:t,mode:e,gainDb:i,volume:s}))}catch{}}};y.styles=q`
     :host {
       --ink: #e8e1cc;
       --yellow: #dcb544;
@@ -1317,17 +1360,23 @@
     }
 
     /*
-     * Below the width where the single row fits: two rows on four columns. On/off key, input knob
-     * (free to use the tone key's column) and tuning LED on top; the reference display under the
-     * first two, with the tone key and volume knob to its right, the LED centred over the knob.
+     * Below the width where the single row fits, and in the half-width controls panel of the
+     * landscape layout: two rows on four columns. On/off key, input knob (free to use the tone
+     * key's column) and tuning LED on top; the reference display under the first two, with the tone
+     * key and volume knob to its right, the LED centred over the knob.
      */
-    @media (max-width: 900px) {
+    @media (max-width: 900px), (orientation: landscape) and (max-height: 520px) {
       .controls {
         grid-template-columns: auto minmax(0, 1fr) auto auto;
         grid-template-rows: var(--panel-height) auto var(--panel-height) auto;
       }
       .controls .start {
         grid-area: 1 / 1;
+      }
+      /* Knob, meter and their label centred in the space between the on/off key and the LED */
+      .controls .input-cell,
+      .controls .input-label {
+        justify-self: center;
       }
       .controls .input-cell {
         grid-area: 1 / 2 / 2 / 4;
@@ -1364,7 +1413,7 @@
       }
     }
 
-    @media (max-width: 720px) {
+    @media (max-width: 720px), (orientation: landscape) and (max-height: 520px) {
       :host {
         --start-width: 72px;
       }
@@ -1488,7 +1537,138 @@
         letter-spacing: 0.06em;
       }
     }
-  `;k([w()],y.prototype,"reference",2);k([w()],y.prototype,"mode",2);k([w()],y.prototype,"running",2);k([w()],y.prototype,"frequency",2);k([w()],y.prototype,"message",2);k([w()],y.prototype,"gainDb",2);k([w()],y.prototype,"level",2);k([w()],y.prototype,"toneOn",2);k([w()],y.prototype,"volume",2);y=k([q("tuner-app")],y);function Os(t){return`${t>0?"+":t<0?"−":""}${Math.abs(t)} dB`}function zs(t){const e=t instanceof DOMException?t.name:"";return e==="NotAllowedError"||e==="SecurityError"?"Microphone access denied":e==="NotFoundError"?"No microphone found":navigator.mediaDevices?"Microphone unavailable":"Microphone needs HTTPS"}"serviceWorker"in navigator&&window.addEventListener("load",()=>{navigator.serviceWorker.register("./sw.js").catch(()=>{})});
+
+    /*
+     * Phones in portrait: slimmer header, padding, tuning mode keys and footer, so the stacked
+     * panels fit a phone screen at full width rather than being scaled down.
+     */
+    @media (max-width: 720px) and (orientation: portrait) {
+      header {
+        padding: 0.6rem 1.6rem 0.5rem;
+      }
+      .controls {
+        padding: 1rem;
+      }
+      .modes {
+        gap: 0.4rem 0.6rem;
+        padding: 0.8rem 1rem 0.9rem;
+      }
+      .mode {
+        height: 44px;
+      }
+      .icon {
+        width: 28px;
+        height: 28px;
+      }
+      footer {
+        height: 20px;
+      }
+      .tip {
+        margin-top: 0.5rem;
+      }
+    }
+
+    /*
+     * Landscape on phones (and other short screens): the display panel and the controls panel
+     * side by side under the name strip, so the device spans the full width instead of shrinking
+     * to fit the height. The display is centred vertically in its half; a groove divides the two.
+     * Everything is sized down so the whole device fits a phone's landscape height.
+     */
+    @media (orientation: landscape) and (max-height: 520px) {
+      :host {
+        --start-width: 64px;
+      }
+      .panels {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      }
+      .display-panel {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-right: 1px solid rgba(0, 0, 0, 0.65);
+        box-shadow: 1px 0 0 rgba(255, 255, 255, 0.06);
+      }
+      header {
+        padding: 0.4rem 1.6rem 0.35rem;
+      }
+      .brand {
+        font-size: 1.25rem;
+      }
+      .meter-section {
+        --note-size: 2.6rem;
+        --freq-size: 0.95rem;
+        /*
+         * 15px more on the left: the display's frame then sits as far from the panel's left edge
+         * as from the keys on its right (right padding, divider and the controls' padding, less
+         * the frame and the key outline).
+         */
+        padding: 0.8rem 0.8rem 0.8rem calc(0.8rem + 15px);
+      }
+      .controls {
+        --panel-height: 58px;
+        --knob-size: 50px;
+        row-gap: 0.35rem;
+        /*
+         * Top padding: the display's frame (aligned with the on/off key) as far below the metal
+         * strip as it is from the panel's left edge and from the keys on its right.
+         */
+        padding: calc(0.8rem + 15px) 1rem 0.5rem;
+      }
+      /* As much space under the top row's labels as between "Ref. A4" and "Tuning mode". */
+      .start-label,
+      .input-label,
+      .led-label {
+        padding-bottom: 1rem;
+      }
+      .controls .volume {
+        --knob-size: 46px;
+      }
+      .fork {
+        width: 56px;
+      }
+      .fork-icon {
+        bottom: 7px;
+        width: 28px;
+        height: 28px;
+        margin-left: -14px;
+      }
+      .led-cell .bezel {
+        width: 40px;
+        height: 40px;
+      }
+      .led-cell .led {
+        width: 26px;
+        height: 26px;
+      }
+      /*
+       * Tuning mode keys in one row: keys and captions, no instrument icons. The keys' height
+       * balances the space above the Hz row, so that row stays centred on the main display.
+       */
+      .modes {
+        gap: 0.3rem 0.5rem;
+        padding: 0.5rem 1rem 0.6rem;
+      }
+      .mode {
+        height: 50px;
+      }
+      .mode .key-led {
+        top: 6px;
+      }
+      .icon {
+        display: none;
+      }
+      .caption {
+        margin-top: 0;
+      }
+      footer {
+        height: 16px;
+      }
+      .tip {
+        margin-top: 0.35rem;
+      }
+    }
+  `;E([$()],y.prototype,"reference",2);E([$()],y.prototype,"mode",2);E([$()],y.prototype,"running",2);E([$()],y.prototype,"frequency",2);E([$()],y.prototype,"message",2);E([$()],y.prototype,"gainDb",2);E([$()],y.prototype,"level",2);E([$()],y.prototype,"toneOn",2);E([$()],y.prototype,"volume",2);y=E([V("tuner-app")],y);function Oi(t){return`${t>0?"+":t<0?"−":""}${Math.abs(t)} dB`}function zi(t){const e=t instanceof DOMException?t.name:"";return e==="NotAllowedError"||e==="SecurityError"?"Microphone access denied":e==="NotFoundError"?"No microphone found":navigator.mediaDevices?"Microphone unavailable":"Microphone needs HTTPS"}"serviceWorker"in navigator&&window.addEventListener("load",()=>{navigator.serviceWorker.register("./sw.js").catch(()=>{})});
 </script>
   </head>
   <body>

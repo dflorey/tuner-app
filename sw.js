@@ -3,7 +3,7 @@
 // network takes longer than NETWORK_TIMEOUT_MS. Its small files are answered from the cache
 // straight away and refreshed in the background. Bump CACHE to drop everything cached by an older
 // version.
-const CACHE = 'tuner-v2';
+const CACHE = 'tuner-v3';
 const SHELL = ['./', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png'];
 const NETWORK_TIMEOUT_MS = 3000;
 
@@ -21,7 +21,8 @@ self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches
       .keys()
-      .then((keys) => Promise.all(keys.filter((key) => key !== CACHE).map((key) => caches.delete(key))))
+      // Only this app's old caches: the FS apps share one origin, so its other apps' caches are here too
+      .then((keys) => Promise.all(keys.filter((key) => key.startsWith('tuner-') && key !== CACHE).map((key) => caches.delete(key))))
       .then(() => self.clients.claim())
   );
 });
